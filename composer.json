@@ -1,0 +1,38 @@
+{
+    "name": "dijisoft/livewire-datatable",
+    "description": "Customisable livewire datatable",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Dijisoft",
+            "email": "simon@dijisoft.net"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": "^7.4 || ^8.0",
+        "livewire/livewire": "^2.4",
+        "maatwebsite/excel": "^3.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Dijisoft\\LivewireDatatable\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Dijisoft\\LivewireDatatable\\Tests\\": "tests"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Dijisoft\\LivewireDatatable\\LivewireDatatableServiceProvider"
+            ]
+        }
+    }
+}
