@@ -1,0 +1,1 @@
+<span class="tb-sub tb-amount">{{ $value? number_format($value, 0, '', ' ') : '-' }} <span>&euro;</span></span>

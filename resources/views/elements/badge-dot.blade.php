@@ -1,0 +1,1 @@
+<span class="badge badge-sm badge-dot has-bg d-inline-flex {{ ($value??false)? 'badge-success' : 'badge-danger' }}">{{ $value??'' }}</span>
