@@ -1,6 +1,6 @@
 <?php
 
-namespace Dijisoft\LivewireDatatable;
+namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Blade;
