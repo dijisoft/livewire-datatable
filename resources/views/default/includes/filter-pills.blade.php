@@ -12,7 +12,7 @@
                     {{ $filterNames[$key] ?? collect($this->columns())->pluck('text', 'column')->get($key, ucwords(strtr($key, ['_' => ' ', '-' => ' ']))) }}:
                     @php $filterObj = $this->filters()[$key]??null; @endphp
                     @if($filterObj && method_exists($filterObj, 'options'))
-                        @if($filterObj->type == App\Http\Livewire\Modules\Datatables\Views\Filter::TYPE_BTN) 
+                        @if($filterObj->type == 'btn') 
                         {{ $filterObj->options()[$value]['text'] ?? $value }}
                         @else
                         {{ $filterObj->options()[$value] ?? $value }}

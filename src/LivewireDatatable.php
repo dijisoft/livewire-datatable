@@ -112,6 +112,7 @@ class LivewireDatatable extends Component
     public $hideDateRangeFilters;
     public $customFiltersView;
     public $importActions = [];
+    public $options = [];
 
     public function mount(
         $layout = 'default',
@@ -135,6 +136,7 @@ class LivewireDatatable extends Component
         $hideDateRangeFilters = false,
         $customFiltersView = null,
         $canLoad = true,
+        $options = []
     ) {
         
         $this->filters = array_merge($this->filters, $this->baseFilters);
