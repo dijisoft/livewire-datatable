@@ -44,6 +44,11 @@ class Column
      */
     public ?string $class = 'nk-tb-col';
 
+      /**
+     * @var callable
+     */
+    public $classCallback;
+
     /**
      * @var bool
      */
@@ -205,6 +210,18 @@ class Column
         return $this;
     }
 
+     /**
+     * @param callable $callback
+     *
+     * @return $this
+     */
+    public function addClassCallback(callable $callback): self
+    {
+        $this->classCallback = $callback;
+
+        return $this;
+    }
+
     /**
      * @return Column
      */
@@ -218,9 +235,12 @@ class Column
     /**
      * @return string|null
      */
-    public function class(): ?string
+    public function class($row = null): ?string
     {
-        return $this->class;
+        $class = $this->classCallback && $row? 
+            app()->call($this->classCallback, compact('row')) : '';
+            
+        return trim($this->class . " " .$class);
     }
 
     /**
