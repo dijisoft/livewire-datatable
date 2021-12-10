@@ -28,7 +28,9 @@
             </div>
             <div class="nk-block-head-content">
                 <div class="toggle-wrap nk-block-tools-toggle">
+                    @if ($this->showSearch || $filtersView || count($filtersList) || count($bulkActions) || $create)
                     <a href="#" class="btn btn-icon btn-trigger toggle-expand mr-n1" data-target="pageMenu"><em class="icon ni ni-more-v"></em></a>
+                    @endif
                     <div class="toggle-expand-content" data-content="pageMenu">
                         <ul class="nk-block-tools g-3">
                             @include('datatables::default.includes.search')
