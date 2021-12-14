@@ -19,7 +19,7 @@
                         :sortable="$column->isSortable()"
                         :column="$column->column()"
                         :direction="$column->column() ? $sorts[$column->column()] ?? null : null"
-                        :text="$column->text() ?? ''"
+                        :text="$column->textHtml() ?? $column->text() ?? ''"
                         :class="$column->class() ?? ''"
                     />
                 @endif

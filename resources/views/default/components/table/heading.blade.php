@@ -7,7 +7,7 @@
 
 @unless ($sortable)
     <div {{ $attributes->only('class') }}>
-        {{ $text ?? $slot }}
+        {!! $text ?? $slot !!}
     </div>
 @else
 <div x-data x-on:click="$wire.sortBy('{{ $column }}')"
@@ -15,7 +15,7 @@
     style="cursor:pointer;"
 >
     <div class="d-flex align-items-center">
-        <span>{!! $textHtml?? $text !!}</span>
+        <span>{!! $text !!}</span>
 
         <span class="relative d-flex align-items-center">
             @if ($direction === 'asc')

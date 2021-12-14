@@ -91,7 +91,7 @@ class Column
      * @param string|null $text
      * @param string|null $textHtml
      */
-    public function __construct(string $text = null, string $column = null, $textHtml = null)
+    public function __construct(string $text = null, string $column = null, string $textHtml = null)
     {
         $this->text = $text;
 
@@ -108,7 +108,7 @@ class Column
         }
 
         $this->formatCallbacks = [];
-        $this->$textHtml = null;
+        $this->textHtml = $textHtml;
     }
 
     /**
@@ -118,7 +118,7 @@ class Column
      *
      * @return Column
      */
-    public static function make(string $text = null, string $column = null, $textHtml = null): Column
+    public static function make(string $text = null, string $column = null, string $textHtml = null): Column
     {
         return new static($text, $column, $textHtml);
     }
@@ -265,6 +265,26 @@ class Column
     public function text(): ?string
     {
         return $this->text;
+    }
+
+     /**
+     * @return string|null
+     */
+    public function textHtml(): ?string
+    {
+        return $this->textHtml;
+    }
+
+    /**
+     * @param string $textHtml
+     *
+     * @return $this
+     */
+    public function setTextHtml(string $textHtml): self
+    {
+        $this->textHtml = $textHtml;
+
+        return $this;
     }
 
     /**
