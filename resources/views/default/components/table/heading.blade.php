@@ -15,7 +15,7 @@
     style="cursor:pointer;"
 >
     <div class="d-flex align-items-center">
-        <span>{{ $text }}</span>
+        <span>{!! $textHtml?? $text !!}</span>
 
         <span class="relative d-flex align-items-center">
             @if ($direction === 'asc')

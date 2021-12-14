@@ -19,6 +19,11 @@ class Column
      */
     public ?string $text = null;
 
+     /**
+     * @var string|null
+     */
+    public ?string $textHtml = null;
+
     /**
      * @var bool
      */
@@ -84,8 +89,9 @@ class Column
      *
      * @param string|null $column
      * @param string|null $text
+     * @param string|null $textHtml
      */
-    public function __construct(string $text = null, string $column = null)
+    public function __construct(string $text = null, string $column = null, $textHtml = null)
     {
         $this->text = $text;
 
@@ -102,17 +108,19 @@ class Column
         }
 
         $this->formatCallbacks = [];
+        $this->$textHtml = null;
     }
 
     /**
      * @param string|null $column
      * @param string|null $text
+     * @param string|null $textHtml
      *
      * @return Column
      */
-    public static function make(string $text = null, string $column = null): Column
+    public static function make(string $text = null, string $column = null, $textHtml = null): Column
     {
-        return new static($text, $column);
+        return new static($text, $column, $textHtml);
     }
 
     /**
