@@ -6,7 +6,7 @@
 ])
 
 @unless ($sortable)
-    <div {{ $attributes->only('class') }}>
+    <div {{ $attributes->only('class') }} wire:ignore>
         {!! $text ?? $slot !!}
     </div>
 @else
@@ -15,7 +15,7 @@
     style="cursor:pointer;"
 >
     <div class="d-flex align-items-center">
-        <span>{!! $text !!}</span>
+        <span wire:ignore>{!! $text !!}</span>
 
         <span class="relative d-flex align-items-center">
             @if ($direction === 'asc')
