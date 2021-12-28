@@ -374,15 +374,17 @@ trait WithFilters
         }
 
         foreach($this->getFiltersWithoutSearch() as $key => $value) {
-            if($this->filters()[$key]->hasCallback()??false) {
-                ($this->filters()[$key]->getCallback())($query, $value);
-            }elseif($key == 'role') {
-                $query->role($value);
-            } else {
-                $query->where($key, $value);
+            if(isset($this->filters()[$key])) {
+                if($this->filters()[$key]->hasCallback()) {
+                    ($this->filters()[$key]->getCallback())($query, $value);
+                }elseif($key == 'role') {
+                    $query->role($value);
+                } else {
+                    $query->where($key, $value);
+                }
             }
         }
-
+        
         foreach($this->daterangefilters as $key => $value) {
             $query->whereBetween($key, [
                 Carbon::parse($value['start'])->startOfDay(), 
