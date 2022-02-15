@@ -221,7 +221,6 @@ trait WithFilters
     {
         return collect($this->filters())
             ->reject(fn($f) => $f->isBtn())
-            ->reject(fn ($f) => $f->isDaterange())
             ->toArray();
     }
 
