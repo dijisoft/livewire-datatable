@@ -56,7 +56,7 @@ class LivewireDatatable extends Component
      *
      * @var string
      */
-    public string $emptyMessage = 'Pas de résultats';
+    public string $emptyMessage = 'No results';
 
     /**
      * Name of the page parameter for pagination
@@ -88,7 +88,7 @@ class LivewireDatatable extends Component
     */
     public $loader;
     public $readyToLoad;
-    public $canLoad;
+    public $deferLoad;
 
     /** 
     *
@@ -109,15 +109,13 @@ class LivewireDatatable extends Component
     public $defaultSorting;
     public $limit;
     public $components = [];
-    public $hideDateRangeFilters;
     public $customFiltersView;
     public $importActions = [];
-    public $options = [];
+    public $hide = [];
 
     public function mount(
         $layout = 'default',
         $title = null,
-        $theme = null,
         $model = null,
         $include = null,
         $exclude = null,
@@ -125,25 +123,24 @@ class LivewireDatatable extends Component
         $sortable = null,
         $hidden = null,
         $actions = null,
-        $loader = null,
-        $styles = [],
         $create = null,
-        $createPermissions = null,
         $restrict = null,
         $defaultSorting = null,
         $limit = null,
         $components = [],
-        $hideDateRangeFilters = false,
         $customFiltersView = null,
-        $canLoad = true,
-        $options = []
+        $loader = null,
+        $deferLoad = false,
+        $styles = [],
+        $hide = [],
     ) {
         
         $this->filters = array_merge($this->filters, $this->baseFilters);
         $this->readyToLoad = false;
         
-        foreach (['layout', 'title', 'theme', 'model', 'include', 'searchable', 'sortable', 'hidden', 'actions', 
-            'styles', 'loader', 'create', 'defaultSorting', 'limit', 'components', 'hideDateRangeFilters', 'customFiltersView', 'canLoad'] as $property) {
+        foreach (['layout', 'title', 'model', 'include', 'searchable', 'sortable', 'hidden', 'actions', 
+            'create', 'restrict', 'defaultSorting', 'limit', 'components', 'customFiltersView', 'loader', 'deferLoad', 
+            'styles', 'hide'] as $property) {
             $this->$property = $this->$property ?? $$property;
         }
 
@@ -238,7 +235,7 @@ class LivewireDatatable extends Component
      */
     public function getRowsProperty()
     {
-        if($this->loader && !$this->readyToLoad) {
+        if(! $this->can_load) {
             return collect();
         }
 
@@ -266,6 +263,11 @@ class LivewireDatatable extends Component
 
     public function setDatatableVariable($variable, $value) {
         $this->{$variable} = $value;
+    }
+
+    public function resetProperty($property): void
+    {
+        $this->reset($property);
     }
 
     /**
@@ -323,12 +325,16 @@ class LivewireDatatable extends Component
 
     public function export()
     {
-        return (new DatatableExport($this->rowsQuery()->get(), $this->columns()))->download('ExportTableau.csv', 'Csv');
+        return (new DatatableExport($this->rowsQuery()->get(), $this->columns()))->download(__('TableExport').'.csv', 'Csv');
     }
 
     public function loadTable()
     {
         $this->readyToLoad = true;
+    }
+
+    public function getCanLoadProperty() {
+        return (!$this->loader && !$this->deferLoad) || ($this->loader && $this->readyToLoad);
     }
 
     public function paginationView()

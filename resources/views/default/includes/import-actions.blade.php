@@ -1,4 +1,4 @@
-@if (count($importActions))
+@if (count($importActions) && !in_array('import-actions', $hide))
 <li>
     <div class="dropdown mb-3 mb-md-0 d-block d-md-inline">
         <button class="btn btn-trigger btn-icon dropdown-toggle" type="button" id="importActions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

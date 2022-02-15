@@ -10,6 +10,10 @@ class LivewireDatatableServiceProvider extends ServiceProvider {
     public function boot() {
 
         $this->publishes([
+            __DIR__.'/../config' => resource_path('views/config'),
+        ], 'livewire-datatable-config');
+
+        $this->publishes([
             __DIR__.'/../resources/views' => resource_path('views/vendor/datatables'),
         ], 'livewire-datatable-views');
 

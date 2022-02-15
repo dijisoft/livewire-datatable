@@ -8,7 +8,6 @@ namespace Dijisoft\LivewireDatatable\Traits;
 trait WithPerPagePagination
 {
     public bool $paginationEnabled = true;
-    public bool $showPerPage = true;
     public bool $showPagination = true;
     public int $perPage = 10;
     public array $perPageAccepted = [5, 10, 25, 50, 100];

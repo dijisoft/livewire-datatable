@@ -32,13 +32,6 @@ trait WithFilters
     public array $filterNames = [];
 
     /**
-     * Show the filter pills
-     *
-     * @var bool
-     */
-    public bool $showFilters = true;
-
-    /**
      * Show the filter dropdown
      *
      * @var bool
@@ -73,10 +66,6 @@ trait WithFilters
         $this->customFilters = [];
 
         $this->filters['search'] = $search;
-
-        if (method_exists($this, 'removePlaceCustomFilters')) {
-            $this->removePlaceCustomFilters();
-        }
     }
 
     /**
@@ -232,7 +221,7 @@ trait WithFilters
     {
         return collect($this->filters())
             ->reject(fn($f) => $f->isBtn())
-            ->reject(fn ($f) => $f->isDaterange() && $this->hideDateRangeFilters)
+            ->reject(fn ($f) => $f->isDaterange())
             ->toArray();
     }
 
@@ -257,11 +246,11 @@ trait WithFilters
         if (isset($this->filters[$filter])) {
             unset($this->filters[$filter]);
         }
-
+       
         if (isset($this->daterangefilters[$filter])) {
             unset($this->daterangefilters[$filter]);
         }
-
+        
         if (isset($this->customFilters[$filter])) {
             unset($this->customFilters[$filter]);
         }
@@ -318,7 +307,7 @@ trait WithFilters
      /**
      * Gets the value of currently filtered column (useful for transforming the value in filter pills)
      */
-    public function getFilterValue($key, $value): string
+    public function getFilterValue($key, $value): ?string
     {
         return $value;
     }

@@ -1,5 +1,5 @@
 {{-- {{ json_encode($this->filters()) }} --}}
-@if ($showFilters && (count($this->getFiltersWithoutSearch()) || count(array_filter($daterangefilters))) || count(array_filter($customFilters)))
+@if (!in_array('filter-pills', $hide) && (count($this->getFiltersWithoutSearch()) || count(array_filter($daterangefilters))) || count(array_filter($customFilters)))
     <div id="filterPills" class="mb-3">
         <small>@lang('Applied Filters'):</small>
 
@@ -39,8 +39,8 @@
                     wire:key="filter-pill-{{ $key }}"
                     class="badge badge-pill badge-info d-inline-flex align-items-center"
                 >
-                    {{ $filterNames[$key]?? $key }} du 
-                    {{ Carbon::parse($value['start'])->format('d/m/Y') }} au {{ Carbon::parse($value['end'])->format('d/m/Y') }}
+                    {{ $filterNames[$key]?? $key }} @lang('from') 
+                    {{ \Carbon\Carbon::parse($value['start'])->format('d/m/Y') }} @lang('to') {{ \Carbon\Carbon::parse($value['end'])->format('d/m/Y') }}
                     <a
                         wire:click.prevent="removeFilter('{{ $key }}')"
                         class="text-white ml-2 cp"
@@ -56,21 +56,19 @@
 
 
         @foreach($customFilters as $key => $value)
-            @continue(in_array($key, $this->hiddenCustomFilters))
+            @continue(in_array($key, $this->hiddenCustomFilters) || empty($value))
             
-            @php $value = is_array($value)? implode(', ', $value) : $value @endphp
+            @php 
+                $value = $this->getFilterValue($key, $value)
+            @endphp
             @if ($key !== 'search' && strlen($value))
                 <span
                     wire:key="filter-pill-{{ $key }}"
                     class="badge badge-pill badge-info d-inline-flex align-items-center"
                 >
-                    {{ ucfirst($filterNames[$key]?? $key) }} : {{ $this->getFilterValue($key, $value) }} 
+                    {{ ucfirst($filterNames[$key]?? $key) }} : {{ $value }} 
                     <a
-                        @if($key == 'place_name')
-                        wire:click.prevent="removePlaceCustomFilters"
-                        @else
                         wire:click.prevent="removeFilter('{{ $key }}')"
-                        @endif
                         class="text-white ml-2 cp"
                     >
                         <span class="sr-only">@lang('Remove filter option')</span>
@@ -84,8 +82,7 @@
 
         <span class="badge badge-pill badge-light"></span>
         <a
-            x-data x-on:click="$wire.resetFilters('{{ $key }}')"
-            wire:click.prevent="resetFilters"
+            x-data x-on:click="$wire.resetFilters"
             class="badge badge-pill badge-light cp"
         >
             @lang('Clear')

@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Relations\Relation;
  */
 trait WithSorting
 {
-    public bool $showSorting = true;
     public bool $singleColumnSorting = false;
     public array $sorts = [];
     public array $sortNames = [];

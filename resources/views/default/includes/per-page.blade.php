@@ -1,4 +1,4 @@
-@if ($paginationEnabled && $showPerPage)
+@if ($paginationEnabled && !in_array('per-page', $hide))
     <div class="ml-3">
         <select
             wire:model="perPage"
@@ -9,6 +9,5 @@
                 <option value="{{ $item }}">{{ $item === -1 ? __('All') : $item }}</option>
             @endforeach
         </select>
-        {{-- <small class="ml-1 mt-1">Rangées</small> --}}
     </div>
 @endif

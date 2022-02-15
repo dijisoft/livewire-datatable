@@ -1,4 +1,5 @@
-<div @if($loader) wire:init="loadTable" @endif
+<div 
+    @if($loader) wire:init="loadTable" @endif
     @if (is_numeric($refresh))
         wire:poll.{{ $refresh }}ms
     @elseif(is_string($refresh))
@@ -10,25 +11,23 @@
             wire:poll="{{ $refresh }}"
         @endif
     @endif
-    class="container-fluid p-0"
 >
     {{-- <p>FILTERS: {{ json_encode($filters) }} CUSTOM: {{ json_encode($customFilters) }}</p> --}}
     @unless($this->limit)
 
-    @if($customFiltersView)
-        @include($customFiltersView)
-    @else
-    <div class="nk-block-head nk-block-head @if(in_array('p-header-none', $styles)) pb-0 @endif">
+    <div class="nk-block-head nk-block-head 
+        @if(in_array('p-header-none', $styles)) pb-0 @endif
+        @if(in_array('d-header-none', $styles)) d-none @endif">
         <div class="nk-block-between">
             <div class="nk-block-head-content d-flex">
-                @if($title)
+                @if($title && !(in_array('title', $hide)))
                 <div class="d-block"><h3 class="nk-block-title page-title">{!! $title !!}</h3></div>
                 @endif
                 @include('datatables::default.includes.btn-filters')
             </div>
             <div class="nk-block-head-content">
                 <div class="toggle-wrap nk-block-tools-toggle">
-                    @if ($this->showSearch || $filtersView || count($filtersList) || count($bulkActions) || $create)
+                    @if(!(in_array('mobile-menu', $hide)))
                     <a href="#" class="btn btn-icon btn-trigger toggle-expand mr-n1" data-target="pageMenu"><em class="icon ni ni-more-v"></em></a>
                     @endif
                     <div class="toggle-expand-content" data-content="pageMenu">
@@ -44,6 +43,9 @@
             </div>
         </div>
     </div>
+
+    @if(isset($views['header']))
+        @include($views['header'])
     @endif
     {{-- <div class="nk-block-head nk-block-head">
         @include('datatables::default.includes.btn-filters')
@@ -52,7 +54,7 @@
     @if ($loader && empty($readyToLoad))
         <div class="d-flex justify-content-center py-4 ml-4">
             <div class="spinner-border text-light" role="status">  
-                <span class="sr-only">Chargement...</span>
+                <span class="sr-only">@lang('Loading')...</span>
             </div>
         </div>
     @else
@@ -62,10 +64,7 @@
             @include('datatables::default.includes.sorting-pills')
             @include('datatables::default.includes.filter-pills')
         </div>
-        <div class="
-            @if(in_array('depth', $styles)) z-depth-1-bottom @endif 
-            @if(in_array('rounded', $styles)) card @endif 
-            table-responsive">    
+        <div @class(array_merge(['table-responsive'], $styles['class']?? [])) >    
             @include('datatables::default.includes.table')
         </div>  
         @include('datatables::default.includes.pagination')

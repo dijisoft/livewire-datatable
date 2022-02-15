@@ -1,4 +1,4 @@
-@if ($showSorting)
+@if (!in_array('sorting-pills', $hide))
     <div class="mb-3 @if(empty($sorts)) d-none @endif">
         <small>@lang('Applied Sorting'):</small>
 

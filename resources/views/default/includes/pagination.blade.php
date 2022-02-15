@@ -1,4 +1,4 @@
-@unless($loader && !$readyToLoad)
+@if($this->can_load && !in_array('pagination', $hide))
     @if ($showPagination)
     <div class="my-2">
         @if ($paginationEnabled && $rows->lastPage() > 1)
@@ -10,18 +10,18 @@
                 <div class="col-12 col-md-6 text-center text-md-right text-muted d-flex justify-content-end mt-3 mt-sm-0">
                     <div>
                         <span>
-                        Affichage des lignes
+                        @lang('Showing rows')
                         </span>
                         <strong>{{ $rows->count() ? $rows->firstItem() : 0 }}</strong>
                         <span>
-                        à
+                        @lang('to')
                         </span>
                         <strong>{{ $rows->count() ? $rows->lastItem() : 0 }}</strong>
                         <span>
-                        sur
+                        @lang('of')
                         </span>
                         <strong>{{ $rows->total() }}</strong>
-                        résultats
+                        @lang('results')
                     </div>
                     @include('datatables::default.includes.per-page')</span>
                 </div>
@@ -30,9 +30,9 @@
             <div class="row mx-0">
                 <div class="col-12 text-muted d-flex justify-content-start">
                     <div>
-                        @lang('Affichage des')
+                        @lang('Showing')
                         <strong>{{ $rows->count() }}</strong>
-                        @lang('résultats')
+                        @lang('results')
                     </div>
                     @include('datatables::default.includes.per-page')
                 </div>
@@ -40,4 +40,4 @@
         @endif
     </div>
     @endif
-@endunless
+@endif
