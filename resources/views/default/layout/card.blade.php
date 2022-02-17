@@ -13,9 +13,9 @@
      @endif>
 
     @unless($this->limit)
-        @if(isset($views['header']))
+        @if(isset($views['header']) && !in_array('custom-header', $hide)))
             @include($views['header'])
-        @else
+        @elseif(!in_array('header', $hide)))
         <div class="nk-block-head nk-block-head 
             @if(in_array('d-header-none', $styles)) d-none @endif"
         >

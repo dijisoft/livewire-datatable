@@ -15,9 +15,9 @@
     {{-- <p>FILTERS: {{ json_encode($filters) }} CUSTOM: {{ json_encode($customFilters) }}</p> --}}
     @unless($this->limit)
 
+    @if (!in_array('header', $hide))
     <div class="nk-block-head nk-block-head 
-        @if(in_array('p-header-none', $styles)) pb-0 @endif
-        @if(in_array('d-header-none', $styles)) d-none @endif">
+        @if(in_array('p-header-none', $styles)) pb-0 @endif">
         <div class="nk-block-between">
             <div class="nk-block-head-content d-flex">
                 @if($title && !(in_array('title', $hide)))
@@ -43,8 +43,9 @@
             </div>
         </div>
     </div>
+    @endif
 
-    @if(isset($views['header']))
+    @if(isset($views['header']) && !in_array('custom-header', $hide))
         @include($views['header'])
     @endif
     {{-- <div class="nk-block-head nk-block-head">
