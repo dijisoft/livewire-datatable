@@ -17,10 +17,19 @@ class DatatableExport implements FromCollection, WithHeadings
     public function __construct($collection, $columns=null)
     {
         $this->collection = collect($collection->toArray());
-        $this->columns = collect($columns)->map(fn($col) => $col->text)->reject(fn($col) => strtolower($col) == 'actions')->filter()->toArray();
+        $this->columns = collect($columns)
+            ->map(fn($col) => $col->text)
+            ->reject(fn($col) => strtolower($col) == 'actions')
+            ->filter()
+            ->toArray();
+
         if($columns) {
             $this->collection = $collection->map(
-                fn($elem) => $elem->only(collect($columns)->map(fn($col) => $col->column)->toArray())
+                fn($elem) => $elem->only(
+                    collect($columns)
+                        ->map(fn($col) => $col->column)
+                        ->toArray()
+                )
             );
         }
     }
