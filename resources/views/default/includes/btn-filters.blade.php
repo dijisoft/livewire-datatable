@@ -1,5 +1,5 @@
 
-@if(count($btnFilters??[]) && !in_array('bbtn-filters', $hide))
+@if(count($btnFilters??[]) && !in_array('btn-filters', $hide))
     @foreach ($btnFilters as $key => $filter)
         @if($filter->btnLayout == 'nav')
             <ul class="nav nav-tabs px-0 px-xxl-4"
