@@ -16,9 +16,7 @@
         @if(isset($views['header']) && !in_array('custom-header', $hide)))
             @include($views['header'])
         @elseif(!in_array('header', $hide)))
-        <div class="nk-block-head nk-block-head 
-            @if(in_array('d-header-none', $styles)) d-none @endif"
-        >
+        <div class="nk-block-head nk-block-head">
             <div class="nk-block-between">
                 <div class="nk-block-head-content d-flex">
                     @if($title && !(in_array('title', $hide)))

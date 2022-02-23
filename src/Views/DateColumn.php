@@ -10,6 +10,10 @@ class DateColumn extends Column
     {
         parent::__construct($text, $column);
 
-        $this->format(fn($value) => $value ? Carbon::parse($value)->format(config('livewire-datatable.date_format', 'd/m/Y')) : null);
+        $this->format(
+            fn($value) => $value 
+                ? Carbon::parse($value)->format(config('livewire-datatable.date_format', 'd/m/Y')) 
+                : null
+        );
     }
 }

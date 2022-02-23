@@ -37,8 +37,6 @@ trait WithSorting
 
         unset($this->sorts[$field]);
 
-      
-
         return null;
     }
 
