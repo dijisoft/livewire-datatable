@@ -47,7 +47,7 @@ class Column
     /**
      * @var string|null
      */
-    public ?string $class = 'nk-tb-col';
+    public ?string $class = 'nk-tb-col ';
 
       /**
      * @var callable
@@ -211,9 +211,11 @@ class Column
      *
      * @return $this
      */
-    public function addClass(string $class): self
+    public function addClass(string|array $class): self
     {
-        $this->class .= " $class";
+        $this->class .= is_array($class) 
+            ? implode(' ', $class) 
+            : $class;
 
         return $this;
     }

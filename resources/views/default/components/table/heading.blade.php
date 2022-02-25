@@ -6,12 +6,12 @@
 ])
 
 @unless ($sortable)
-    <div {{ $attributes->only('class') }} wire:ignore>
+    <div class='nk-tb-col' wire:ignore>
         {!! $text ?? $slot !!}
     </div>
 @else
 <div x-data x-on:click="$wire.sortBy('{{ $column }}')"
-    {{ $attributes->only('class') }}
+    class='nk-tb-col'
     style="cursor:pointer;"
 >
     <div class="d-flex align-items-center">

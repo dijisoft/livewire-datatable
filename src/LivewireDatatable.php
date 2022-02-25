@@ -95,6 +95,7 @@ class LivewireDatatable extends Component
     */
     public $layout;
     public $title;
+    public $metaTitle;
     public $model;
     public $include;
     public $exclude;
@@ -306,7 +307,7 @@ class LivewireDatatable extends Component
                 'btnFilters' => $this->getFiltersBtn(),
                 'rows' => $this->rows,
             ])
-            ->layoutData(['metaTitle' => $this->title]);
+            ->layoutData(['metaTitle' => $this->metaTitle?? $this->title]);
     }
 
     /**
