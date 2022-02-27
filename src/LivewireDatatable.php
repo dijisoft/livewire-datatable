@@ -110,9 +110,10 @@ class LivewireDatatable extends Component
     public $defaultSorting;
     public $limit;
     public $components = [];
-    public $customFiltersView;
+    public $views;
     public $importActions = [];
     public $hide = [];
+    public $params = [];
 
     public function mount(
         $layout = 'default',
@@ -129,19 +130,20 @@ class LivewireDatatable extends Component
         $defaultSorting = null,
         $limit = null,
         $components = [],
-        $customFiltersView = null,
+        $views = null,
         $loader = null,
         $deferLoad = false,
         $styles = [],
         $hide = [],
+        $params = []
     ) {
         
         $this->filters = array_merge($this->filters, $this->baseFilters);
         $this->readyToLoad = false;
         
         foreach (['layout', 'title', 'model', 'include', 'searchable', 'sortable', 'hidden', 'actions', 
-            'create', 'restrict', 'defaultSorting', 'limit', 'components', 'customFiltersView', 'loader', 'deferLoad', 
-            'styles', 'hide'] as $property) {
+            'create', 'restrict', 'defaultSorting', 'limit', 'components', 'views', 'loader', 'deferLoad', 
+            'styles', 'hide', 'params'] as $property) {
             $this->$property = $this->$property ?? $$property;
         }
 
