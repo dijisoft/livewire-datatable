@@ -49,6 +49,11 @@ class Column
      */
     public ?string $class = 'nk-tb-col ';
 
+    /**
+     * @var string|null
+     */
+    public ?string $headerClass = 'nk-tb-col ';
+
       /**
      * @var callable
      */
@@ -199,11 +204,7 @@ class Column
 
     public function searchableIf($condition, $params = null): self
     {
-        if($condition) {
-            return $this->searchable($params);
-        }
-
-        return $this;
+        return $condition? $this->searchable($params) : $this;
     }
 
     /**
@@ -218,6 +219,30 @@ class Column
             : $class;
 
         return $this;
+    }
+
+     /**
+     * @param string $class
+     *
+     * @return $this
+     */
+    public function addHeaderClass(string|array $class): self
+    {
+        $this->headerClass .= is_array($class) 
+            ? implode(' ', $class) 
+            : $class;
+
+        return $this;
+    }
+
+    /**
+     * @param string $class
+     *
+     * @return $this
+     */
+    public function addColumnClass(string|array $class): self
+    {
+        return $this->addClass($class)->addHeaderClass($class);
     }
 
      /**
@@ -251,6 +276,14 @@ class Column
             app()->call($this->classCallback, compact('row')) : '';
             
         return trim($this->class . " " .$class);
+    }
+
+     /**
+     * @return string|null
+     */
+    public function headerClass(): ?string
+    {
+        return trim($this->headerClass);
     }
 
     /**
@@ -385,22 +418,14 @@ class Column
     /**
      * @return bool
      */
-    public function hideXs($condition = null): self
+    public function hideXs($condition = true): self
     {
-        if(is_null($condition) || $condition) {
-            return $this->addClass('hidden-xs');
-        }
-        
-        return $this;
+        return $condition? $this->addColumnClass('hidden-xs') : $this;
     }
 
-    public function showXs($condition = null): self
+    public function showXs($condition = true): self
     {
-        if(is_null($condition) || $condition) {
-            return $this->addClass('d-sm-none');
-        }
-        
-        return $this;
+        return $condition? $this->addColumnClass('d-sm-none') : $this;
     }
 
     /**
