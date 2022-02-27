@@ -30,7 +30,7 @@
                     @if(!(in_array('mobile-menu', $hide)))
                     <a href="#" class="btn btn-icon btn-trigger toggle-expand mr-n1" data-target="pageMenu"><em class="icon ni ni-more-v"></em></a>
                     @endif
-                    <div class="toggle-expand-content" data-content="pageMenu">
+                    <div class="toggle-expand-content" data-content="pageMenu" wire:ignore.self>
                         <ul class="nk-block-tools g-3">
                             @include('datatables::default.includes.search')
                             @include('datatables::default.includes.filters')
