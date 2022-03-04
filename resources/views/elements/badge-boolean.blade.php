@@ -1,1 +1,1 @@
-<span class="badge badge-sm d-inline-flex {{ ($value??false)? 'badge-success' : 'badge-danger' }}">{{ $value? 'Oui' : 'Non' }}</span>
+<span class="badge badge-sm d-inline-flex {{ ($value??false)? 'badge-success' : 'badge-danger' }}">{{ $value? __('Yes') : __('No') }}</span>
