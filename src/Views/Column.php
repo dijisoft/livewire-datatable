@@ -420,7 +420,7 @@ class Column
      */
     public function hideXs($condition = true): self
     {
-        return $condition? $this->addColumnClass('hidden-xs') : $this;
+        return $condition? $this->addColumnClass('d-none d-sm-table-cell') : $this;
     }
 
     public function showXs($condition = true): self
