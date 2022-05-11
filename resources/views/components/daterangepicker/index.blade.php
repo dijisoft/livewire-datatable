@@ -30,7 +30,7 @@
             $(this).data('daterangepicker').setEndDate(moment().format('MM-DD-YYYY'));
         });
     }"
-    data-toggle="tooltip" 
+    data-bs-toggle="tooltip" 
     title="@lang('Select dates')"
     >
     <span class="daterange-title" id="daterangepicker_title"></span>&nbsp;

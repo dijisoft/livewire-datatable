@@ -5,7 +5,7 @@
         <a 
             @if($action['click']??false) wire:click="{{ Str::replace('(id)', "($row->id)", $action['click']) }}" @else
             href="{{ route($action['route']??'', $row->id) }}" @endif
-            class="btn btn-icon btn-trigger btn-tooltip {{ $action['class']??'' }}" data-toggle="tooltip" data-placement="top" 
+            class="btn btn-icon btn-trigger btn-tooltip {{ $action['class']??'' }}" data-bs-toggle="tooltip" data-placement="top" 
             data-original-title="{{ $action['title']??'' }}">
             <em class="icon ni ni-{{ $action['icon']??'' }}"></em>
         </a>
@@ -13,7 +13,7 @@
     @endforeach
     @if($actions['dropdown']??false)
     <li>
-        <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown" aria-expanded="false">
+        <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-bs-toggle="dropdown" aria-expanded="false">
             <em class="icon ni ni-more-h"></em>
         </a>
         <div class="dropdown-menu dropdown-menu-right" style="">

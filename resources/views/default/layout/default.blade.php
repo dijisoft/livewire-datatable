@@ -15,6 +15,10 @@
     {{-- <p>FILTERS: {{ json_encode($filters) }} CUSTOM: {{ json_encode($customFilters) }}</p> --}}
     @unless($this->limit)
 
+    @if(isset($views['pre-table']) && !in_array('pre-table', $hide))
+        @include($views['pre-table'])
+    @endif
+
     @if (!in_array('header', $hide))
     <div class="nk-block-head nk-block-head 
         @if(in_array('p-header-none', $styles)) pb-0 @endif">
@@ -28,9 +32,9 @@
             <div class="nk-block-head-content">
                 <div class="toggle-wrap nk-block-tools-toggle">
                     @if(!(in_array('mobile-menu', $hide)))
-                    <a href="#" class="btn btn-icon btn-trigger toggle-expand mr-n1" data-target="pageMenu-{{ $this->id }}"><em class="icon ni ni-more-v"></em></a>
+                    <a href="#" class="btn btn-icon btn-trigger toggle-expand me-n1" data-target="pageMenu"><em class="icon ni ni-more-v"></em></a>
                     @endif
-                    <div class="toggle-expand-content" data-content="pageMenu-{{ $this->id }}" wire:ignore.self>
+                    <div class="toggle-expand-content" data-content="pageMenu">
                         <ul class="nk-block-tools g-3">
                             @include('datatables::default.includes.search')
                             @include('datatables::default.includes.filters')
@@ -53,14 +57,14 @@
     </div> --}}
     @endunless
     @if ($loader && empty($readyToLoad))
-        <div class="d-flex justify-content-center py-4 ml-4">
+        <div class="d-flex justify-content-center py-4 ms-4">
             <div class="spinner-border text-light" role="status">  
-                <span class="sr-only">@lang('Loading')...</span>
+                <span class="visually-hidden">@lang('Loading')...</span>
             </div>
         </div>
     @else
     <div class="nk-block">
-        <div class="nk-block-head-content pl-1">
+        <div class="nk-block-head-content ps-1">
             @include('datatables::default.includes.offline')
             @include('datatables::default.includes.sorting-pills')
             @include('datatables::default.includes.filter-pills')
@@ -71,6 +75,11 @@
         @include('datatables::default.includes.pagination')
     </div>
     @endif
+
+    @if(isset($views['post-table']) && !in_array('post-table', $hide))
+        @include($views['post-table'])
+    @endif
+    
     @foreach($components as $key => $options)
         @livewire($key, $options, key($key))
     @endforeach

@@ -1,5 +1,5 @@
 @if ($paginationEnabled && !in_array('per-page', $hide))
-    <div class="ml-3">
+    <div class="ms-3">
         <select
             wire:model="perPage"
             id="perPage"

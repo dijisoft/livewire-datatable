@@ -16,7 +16,9 @@
         @if(isset($views['header']) && !in_array('custom-header', $hide)))
             @include($views['header'])
         @elseif(!in_array('header', $hide)))
-        <div class="nk-block-head nk-block-head">
+        <div class="nk-block-head nk-block-head 
+            @if(in_array('d-header-none', $styles)) d-none @endif"
+        >
             <div class="nk-block-between">
                 <div class="nk-block-head-content d-flex">
                     @if($title && !(in_array('title', $hide)))
@@ -27,9 +29,9 @@
                 <div class="nk-block-head-content">
                     <div class="toggle-wrap nk-block-tools-toggle">
                         @if(!(in_array('mobile-menu', $hide)))
-                        <a href="#" class="btn btn-icon btn-trigger toggle-expand mr-n1" data-target="pageMenu-{{ $this->id }}"><em class="icon ni ni-more-v"></em></a>
+                        <a href="#" class="btn btn-icon btn-trigger toggle-expand me-n1" data-target="pageMenu"><em class="icon ni ni-more-v"></em></a>
                         @endif
-                        <div class="toggle-expand-content" data-content="pageMenu-{{ $this->id }}" wire:ignore.self>
+                        <div class="toggle-expand-content" data-content="pageMenu">
                             <ul class="nk-block-tools g-3">
                                 @include('datatables::default.includes.create-button')
                             </ul>
@@ -48,7 +50,7 @@
             <div class="card-inner-group">
                 <div class="card-inner position-relative card-tools-toggle">
                     <div class="card-title-group justify-content-end">
-                        <div class="card-tools mr-n1">
+                        <div class="card-tools me-n1">
                             <ul class="btn-toolbar gx-1">
                                 <li class="btn-toolbar-sep"></li>
                                 @include('datatables::default.includes.filters')
@@ -70,9 +72,9 @@
                     @endif
                 </div>
                 @if ($loader && empty($readyToLoad))
-                    <div class="d-flex justify-content-center py-4 ml-4">
+                    <div class="d-flex justify-content-center py-4 ms-4">
                         <div class="spinner-border text-light" role="status">  
-                            <span class="sr-only">@lang('Loading')...</span>
+                            <span class="visually-hidden">@lang('Loading')...</span>
                         </div>
                     </div>
                 @else

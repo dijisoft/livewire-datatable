@@ -8,7 +8,8 @@
             .not('.select2-hidden-accessible')
             .select2({
                 dropdownAutoWidth: true,
-                width: '100%'
+                width: '100%',
+                minimumResultsForSearch: -1
             });
         select2.on('select2:select', (event) => {
             if (event.target.hasAttribute('multiple')) { 

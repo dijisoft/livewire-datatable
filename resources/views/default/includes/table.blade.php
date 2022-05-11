@@ -20,7 +20,7 @@
                         :column="$column->column()"
                         :direction="$column->column() ? $sorts[$column->column()] ?? null : null"
                         :text="$column->textHtml() ?? $column->text() ?? ''"
-                        :class="$column->headerClass() ?? ''"
+                        :class="$column->class() ?? ''"
                     />
                 @endif
             @endif
@@ -58,9 +58,9 @@
                     <div class="p-2" wire:loading.remove>
                         @lang($emptyMessage)
                     </div>
-                    {{-- <div class="d-flex justify-content-center py-4 ml-4" wire:loading  wire:target="rows">
+                    {{-- <div class="d-flex justify-content-center py-4 ms-4" wire:loading  wire:target="rows">
                         <div class="spinner-border text-light" role="status">  
-                            <span class="sr-only">Chargement...</span>
+                            <span class="visually-hidden">Chargement...</span>
                         </div>
                     </div>     --}}
                 </x-datatables::default.table.cell>
