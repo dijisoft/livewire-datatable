@@ -374,10 +374,16 @@ trait WithFilters
         }
         
         foreach($this->daterangefilters as $key => $value) {
-            $query->whereBetween($key, [
-                Carbon::parse($value['start'])->startOfDay(), 
-                Carbon::parse($value['end'])->endOfDay()
-            ]);
+            if(isset($this->filters()[$key])) {
+                if($this->filters()[$key]->hasCallback()) {
+                    ($this->filters()[$key]->getCallback())($query, $value);
+                } else {
+                    $query->whereBetween($key, [
+                        Carbon::parse($value['start'])->startOfDay(), 
+                        Carbon::parse($value['end'])->endOfDay()
+                    ]);
+                }
+            }
         }
 
         return $query;
