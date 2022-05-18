@@ -20,7 +20,7 @@
                         :column="$column->column()"
                         :direction="$column->column() ? $sorts[$column->column()] ?? null : null"
                         :text="$column->textHtml() ?? $column->text() ?? ''"
-                        :class="$column->class() ?? ''"
+                        :class="$column->headerClass() ?? ''"
                     />
                 @endif
             @endif
