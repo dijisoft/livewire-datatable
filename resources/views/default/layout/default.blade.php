@@ -19,7 +19,7 @@
         @include($views['pre-table'])
     @endif
 
-    @if (!in_array('header', $hide))
+    @if (!in_array('filters', $hide))
     <div class="nk-block-head nk-block-head 
         @if(in_array('p-header-none', $styles)) pb-0 @endif">
         <div class="nk-block-between">

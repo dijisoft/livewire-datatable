@@ -1,5 +1,5 @@
 <x-datatables::default.table
-    :styles="$styles">
+    :styles="$styles" :hide="$hide">
     <x-slot name="head">
 
         @if($this->isExpandable())

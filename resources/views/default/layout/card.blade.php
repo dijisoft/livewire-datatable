@@ -15,10 +15,8 @@
     @unless($this->limit)
         @if(isset($views['header']) && !in_array('custom-header', $hide)))
             @include($views['header'])
-        @elseif(!in_array('header', $hide)))
-        <div class="nk-block-head nk-block-head 
-            @if(in_array('d-header-none', $styles)) d-none @endif"
-        >
+        @elseif(!in_array('filters', $hide))
+        <div class="nk-block-head nk-block-head">
             <div class="nk-block-between">
                 <div class="nk-block-head-content d-flex">
                     @if($title && !(in_array('title', $hide)))
@@ -56,12 +54,11 @@
                                 @include('datatables::default.includes.filters')
                                 @include('datatables::default.includes.bulk-actions')
                                 @include('datatables::default.includes.import-actions')
-                                @include('datatables::default.includes.create-button')
                             </ul>
                         </div>
                     </div>
                     @if ($this->showSearch && !in_array('search', $hide))
-                    <div class="card-search search-wrap active" style="max-width: 85%">
+                    <div class="card-search search-wrap active" style="max-width: 10rem">
                         <div class="card-body">
                             <div class="search-content">
                                 <input type="text" class="form-control border-transparent form-focus-none p-0"
