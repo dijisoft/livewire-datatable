@@ -1,5 +1,5 @@
 @if (count($bulkActions) && !in_array('bulk-actions', $hide) && (($selectPage && $rows->total() > $rows->count()) || count($selected)))
-    <x-datatables::default.table.row wire:key="row-message" style="display: table-caption; padding: 10px">
+    <x-datatables::default.table.row wire:key="row-message" style="display: table-caption; padding: 10px; border-bottom: 1px solid #dfe2ec">
         <x-datatables::default.table.cell colspan="{{ count($bulkActions) ? count($columns) + 1 : count($columns) }}">
             @if (count($selected) && !$selectAll && !$selectPage)
                 <div>
@@ -58,7 +58,7 @@
                         <span>
                             @lang('You have selected')
                             <strong>{{ $rows->count() }}</strong>
-                            @lang('rows') @lang('do you want to select all')
+                            @lang('rows'), @lang('do you want to select all')
                             <strong>{{ number_format($rows->total()) }}</strong>?
                         </span>
 
