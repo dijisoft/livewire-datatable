@@ -464,10 +464,20 @@ class Column
     /**
      * @return view
      */
-    public function view($view, $props = '')
+    public function view($view, $props = '', array $fieldMap = [])
     {
+        $fields = ['props' => 'props', 'value' => 'value', 'column' => 'column', 'row' => 'row'];
+        foreach(array_filter($fieldMap) as $key => $val) {
+            $fields[$key] = $val;
+        }
+
         $this->format(
-            fn ($value, $column, $row) => view($view, ['props' => $props, 'value' => $value, 'column' => $column, 'row' => $row])
+            fn ($value, $column, $row) => view($view, [
+                $fields['props'] => $props, 
+                $fields['value'] => $value, 
+                $fields['column'] => $column, 
+                $fields['row'] => $row]
+            )
         );
 
         return $this->asHtml();
