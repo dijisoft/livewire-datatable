@@ -1,6 +1,11 @@
 @foreach($columns as $column)
     @if ($column->isVisible())
-        <div class="{{ $column->class($row) }}">
+        <div 
+            class="{{ $column->class($row) }}"
+            @if($column->triggersExpandable())
+                x-on:click="open == {{ $row->id }}? open = 0 : open = {{ $row->id }}" style="cursor: pointer"
+            @endif
+        >
             @if (strlen($column->editable))
                 @if ($editedIndex === $row->id && $editedField === $column->editable)
                     <div class="form-control-wrap" style="max-width: 18rem">

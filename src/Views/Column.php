@@ -79,6 +79,11 @@ class Column
      */
     public bool $hidden = false;
 
+     /**
+     * @var bool
+     */
+    public bool $triggersExpandable = false;
+
     /**
      * @var string
      */
@@ -318,6 +323,26 @@ class Column
     public function setTextHtml(string $textHtml): self
     {
         $this->textHtml = $textHtml;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function triggersExpandable(): bool
+    {
+        return $this->triggersExpandable;
+    }
+
+    /**
+     * @param bool $triggersExpandable
+     *
+     * @return $this
+     */
+    public function setTriggersExpandable(bool $triggersExpandable = true): self
+    {
+        $this->triggersExpandable = $triggersExpandable;
 
         return $this;
     }
