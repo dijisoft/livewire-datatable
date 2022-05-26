@@ -17,6 +17,7 @@ use Dijisoft\LivewireDatatable\Traits\WithSearch;
 use Dijisoft\LivewireDatatable\Traits\WithSorting;
 use Dijisoft\LivewireDatatable\Utilities\ColumnSet;
 use Dijisoft\LivewireDatatable\Exports\DatatableExport;
+use Dijisoft\LivewireDatatable\Traits\WithExpandableRows;
 
 /**
  * Class TableComponent.
@@ -31,6 +32,7 @@ class LivewireDatatable extends Component
     use WithPerPagePagination;
     use WithSearch;
     use WithSorting;
+    use WithExpandableRows;
 
     public $theme = 'default';
 

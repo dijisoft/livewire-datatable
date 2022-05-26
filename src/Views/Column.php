@@ -442,7 +442,7 @@ class Column
     public function view($view, $props = '')
     {
         $this->format(
-            fn ($value, $column, $row) => view("datatables::elements.$view", ['props' => $props, 'value' => $value, 'column' => $column, 'row' => $row])
+            fn ($value, $column, $row) => view($view, ['props' => $props, 'value' => $value, 'column' => $column, 'row' => $row])
         );
 
         return $this->asHtml();

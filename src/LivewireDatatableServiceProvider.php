@@ -27,6 +27,7 @@ class LivewireDatatableServiceProvider extends ServiceProvider {
             Blade::component('datatables::default.components.table.table', 'datatables::default.table');
             Blade::component('datatables::default.components.table.heading', 'datatables::default.table.heading');
             Blade::component('datatables::default.components.table.row', 'datatables::default.table.row');
+            Blade::component('datatables::default.components.table.expandable-row', 'datatables::default.table.expandable-row');
             Blade::component('datatables::default.components.table.cell', 'datatables::default.table.cell');
         }
     }
