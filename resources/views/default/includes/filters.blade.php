@@ -2,7 +2,7 @@
     @if(collect($filtersList)->where('type', '!=', 'daterange')->count())
         <li x-data>
             <div class="dropdown" wire:key='datatable-filters-{{ $this->id }}' x-ref="dropdown" wire:ignore.self>
-                <a href="#" class="btn btn-trigger btn-icon dropdown-toggle" data-toggle="dropdown">
+                <a href="#" class="btn btn-trigger btn-icon dropdown-toggle" data-bs-toggle="dropdown">
                     @if (count($this->getFiltersWithoutSearch()))
                     <div class="dot dot-primary"></div>
                     @endif
