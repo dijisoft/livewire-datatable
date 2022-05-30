@@ -1,8 +1,9 @@
 @if (($filtersView || count($filtersList)) && !in_array('filters', $hide))
     @if(collect($filtersList)->where('type', '!=', 'daterange')->count())
         <li x-data>
-            <div class="dropdown" wire:key='datatable-filters-{{ $this->id }}' x-ref="dropdown" wire:ignore.self>
-                <a href="#" class="btn btn-trigger btn-icon dropdown-toggle" data-bs-toggle="dropdown">
+            <div class="dropdown" wire:key='datatable-filters-{{ $this->id }}'>
+                <a href="#" class="btn btn-trigger btn-icon dropdown-toggle" 
+                    data-bs-toggle="dropdown" x-ref="dropdownToggle" wire:ignore.self>
                     @if (count($this->getFiltersWithoutSearch()))
                     <div class="dot dot-primary"></div>
                     @endif
@@ -14,7 +15,7 @@
                 >
                     <div class="dropdown-head pr-1">
                         <span class="sub-title dropdown-title">@lang('Filters')</span>
-                        <button class="btn btn-sm" x-on:click="$($refs.dropdown).dropdown('toggle')"><em class="icon ni ni-cross-sm"></em></button>
+                        <button class="btn btn-sm" x-on:click="Bootstrap.Dropdown.getInstance($refs.dropdownToggle).toggle()"><em class="icon ni ni-cross-sm"></em></button>
                     </div>
                     <div class="dropdown-body dropdown-body-rg">
                         <div class="row gx-6 gy-3">
@@ -64,7 +65,7 @@
                             </a>
                         </div>
                         <div class="col-sm-6 d-flex justify-content-end">
-                            <button class="btn btn-sm" x-on:click="$($refs.dropdown).dropdown('toggle')">
+                            <button class="btn btn-sm" x-on:click="Bootstrap.Dropdown.getInstance($refs.dropdownToggle).toggle()">
                                 @lang('Close')
                             </button>
                         </div>
