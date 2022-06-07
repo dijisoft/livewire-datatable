@@ -1,4 +1,5 @@
 <div 
+    class="livewire-datatable"
     @if($loader) wire:init="loadTable" @endif 
     @if (is_numeric($refresh)) 
         wire:poll.{{ $refresh }}ms 

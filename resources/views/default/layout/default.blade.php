@@ -1,4 +1,5 @@
 <div 
+    class="livewire-datatable"
     @if($loader) wire:init="loadTable" @endif
     @if (is_numeric($refresh))
         wire:poll.{{ $refresh }}ms
@@ -20,7 +21,7 @@
     @endif
 
     @if (!in_array('filters', $hide))
-    <div class="nk-block-head nk-block-head 
+    <div class="nk-block-head
         @if(in_array('p-header-none', $styles)) pb-0 @endif">
         <div class="nk-block-between">
             <div class="nk-block-head-content d-flex">

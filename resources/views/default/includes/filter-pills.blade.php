@@ -24,7 +24,7 @@
                     @endif
 
                     <a  x-data x-on:click="$wire.removeFilter('{{ $key }}')"
-                        class="text-white ms-2 cp"
+                        class="text-white ms-2 cursor-pointer"
                     >
                         <span class="visually-hidden">@lang('Remove filter option')</span>
                         <svg style="width:.5em;height:.5em" stroke="currentColor" fill="none" viewBox="0 0 8 8">
@@ -45,7 +45,7 @@
                     {{ \Carbon\Carbon::parse($value['start'])->format('d/m/Y') }} @lang('to') {{ \Carbon\Carbon::parse($value['end'])->format('d/m/Y') }}
                     <a
                         wire:click.prevent="removeFilter('{{ $key }}')"
-                        class="text-white ms-2 cp"
+                        class="text-white ms-2 cursor-pointer"
                     >
                         <span class="visually-hidden">@lang('Remove filter option')</span>
                         <svg style="width:.5em;height:.5em" stroke="currentColor" fill="none" viewBox="0 0 8 8">
@@ -71,7 +71,7 @@
                     {{ ucfirst($filterNames[$key]?? __($key)) }} : {{ $value }} 
                     <a
                         wire:click.prevent="removeFilter('{{ $key }}')"
-                        class="text-white ms-2 cp"
+                        class="text-white ms-2 cursor-pointer"
                     >
                         <span class="visually-hidden">@lang('Remove filter option')</span>
                         <svg style="width:.5em;height:.5em" stroke="currentColor" fill="none" viewBox="0 0 8 8">
@@ -85,7 +85,7 @@
         <span class="badge badge-pill bg-light"></span>
         <a
             wire:click.prevent="resetFilters"
-            class="badge badge-pill bg-light cp"
+            class="badge badge-pill bg-light cursor-pointer"
         >
             @lang('Clear')
         </a>

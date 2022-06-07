@@ -3,7 +3,7 @@
     <div class="form-control-wrap">
         <div class="form-icon form-icon-right" wire:click="$set('filters.search', null)">
             @if(strlen($filters['search']??''))
-            <em class="icon ni ni-cross cp"></em>
+            <em class="icon ni ni-cross cursor-pointer"></em>
             @else
             <em class="icon ni ni-search"></em>
             @endif

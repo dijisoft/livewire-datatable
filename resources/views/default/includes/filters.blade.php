@@ -56,7 +56,7 @@
                         <div class="col-sm-6 d-flex justify-content-start">
                             <a 
                                 @class([
-                                    'clickable cp', 
+                                    'clickable cursor-pointer', 
                                     'd-none' => empty($this->getFiltersWithoutSearch()) && empty($daterangefilters)
                                 ])
                                 wire:click.prevent="resetFilters"

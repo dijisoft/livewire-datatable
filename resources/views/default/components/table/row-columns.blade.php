@@ -9,7 +9,7 @@
             @if (strlen($column->editable))
                 @if ($editedIndex === $row->id && $editedField === $column->editable)
                     <div class="form-control-wrap" style="max-width: 18rem">
-                        <div class="form-icon form-icon-right cp" wire:click="resetEditable()">
+                        <div class="form-icon form-icon-right cursor-pointer" wire:click="resetEditable()">
                             <em class="icon ni ni-cross"></em>
                         </div>
                         <input type="text" class="form-control"
@@ -21,7 +21,7 @@
                         @endif
                     </div>   
                 @else
-                    <div class="cp" wire:click="editIndex({{ $row->id }}, '{{ $column->editable }}', '{{ $column->formatted($row) }}')">
+                    <div class="cursor-pointer" wire:click="editIndex({{ $row->id }}, '{{ $column->editable }}', '{{ $column->formatted($row) }}')">
                         {{ new \Illuminate\Support\HtmlString($column->formatted($row)) }}
                     </div>
                 @endif

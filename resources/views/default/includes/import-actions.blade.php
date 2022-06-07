@@ -10,7 +10,7 @@
                 <a
                     x-data x-on:click="$wire.emit('{{ $action }}')"
                     wire:key="import-action-{{ $action }}"
-                    class="dropdown-item cp"
+                    class="dropdown-item cursor-pointer"
                 >
                     {{ $title }}
                 </a>
