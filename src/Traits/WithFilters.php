@@ -55,6 +55,13 @@ trait WithFilters
         $this->checkFilters();
     }
 
+     /**
+     * Get filter definitions
+     */
+    public function getFilterDefinitionsProperty() {
+        return $this->filters();
+    }
+
     /**
      * Reset the filters array but keep the value for search
      */
@@ -100,7 +107,7 @@ trait WithFilters
      */
     public function checkFilters(): void
     {
-        foreach ($this->filters() as $filter => $_default) {
+        foreach ($this->filterDefinitions as $filter => $_default) {
             if (! isset($this->filters[$filter]) || $this->filters[$filter] === '') {
                 $this->filters[$filter] = null;
                 $this->filterNames[$filter] = $_default->name;
@@ -116,7 +123,7 @@ trait WithFilters
     {
         // Filter $filters values
         $this->filters = collect($this->filters)->filter(function ($filterValue, $filterName) {
-            $filterDefinitions = $this->filters();
+            $filterDefinitions = $this->filterDefinitions;
 
             // Ignore search
             if ($filterName === 'search') {
@@ -184,7 +191,7 @@ trait WithFilters
     public function getFilter(string $filter)
     {
         if ($this->hasFilter($filter)) {
-            if (in_array($filter, collect($this->filters())->keys()->toArray(), true) && $this->filters()[$filter]->isSelect()) {
+            if (in_array($filter, collect($this->filterDefinitions)->keys()->toArray(), true) && $this->filterDefinitions[$filter]->isSelect()) {
                 return $this->hasIntegerKeys($filter) ? (int)$this->filters[$filter] : trim($this->filters[$filter]);
             }
 
@@ -219,7 +226,7 @@ trait WithFilters
      */
     public function getFiltersWithoutBtn(): array
     {
-        return collect($this->filters())
+        return collect($this->filterDefinitions)
             ->reject(fn($f) => $f->isBtn())
             ->toArray();
     }
@@ -229,7 +236,7 @@ trait WithFilters
      */
     public function getFiltersBtn(): array
     {
-        return collect($this->filters())
+        return collect($this->filterDefinitions)
             ->reject(fn($f) => !$f->isBtn())
             ->toArray();
     }
@@ -264,7 +271,7 @@ trait WithFilters
      */
     public function getFilterOptions(string $filter): array
     {
-        return collect($this->filters()[$filter]->options())
+        return collect($this->filterDefinitions[$filter]->options())
             ->keys()
             ->reject(fn ($item) => $item === '' || $item === null)
             ->values()
@@ -362,7 +369,7 @@ trait WithFilters
         }
 
         foreach($this->getFiltersWithoutSearch() as $key => $value) {
-            if($filter = ($this->filters()[$key] ?? null)) {
+            if($filter = ($this->filterDefinitions[$key] ?? null)) {
                 if($filter->hasCallback()) {
                     $filter->getCallback()($query, $value);
                 } else {
@@ -372,7 +379,7 @@ trait WithFilters
         }
         
         foreach($this->daterangefilters as $key => $value) {
-            if($filter = ($this->filters()[$key] ?? null)) {
+            if($filter = ($this->filterDefinitions[$key] ?? null)) {
                 if($filter->hasCallback()) {
                     $filter->getCallback()($query, $value);
                 } else {

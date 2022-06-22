@@ -12,7 +12,7 @@
                     {{ $filterNames[$key] ?? collect($this->columns())
                         ->pluck('text', 'column')
                         ->get($key, __(ucwords(strtr($key, ['_' => ' ', '-' => ' '])))) }}:
-                    @php $filterObj = $this->filters()[$key]??null; @endphp
+                    @php $filterObj = $this->filterDefinitions[$key]?? null; @endphp
                     @if($filterObj && method_exists($filterObj, 'options'))
                         @if($filterObj->type == 'btn') 
                         {{ $filterObj->options()[$value]['text'] ?? $value }}
