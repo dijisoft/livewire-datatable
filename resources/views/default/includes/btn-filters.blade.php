@@ -10,7 +10,7 @@
                     <a 
                         href='#{{ $optionValue['text']?? $optionValue }}' 
                         class="nav-link @if(Str::is($filters[$key]??'', $optionKey)) active @endif" 
-                        wire:click="$set('filters.{{ $key }}', '{{ Str::is($filters[$key]??'', $optionKey)? $optionKey : 'null' }}')"
+                        wire:click="$set('filters.{{ $key }}', {{ Str::is($filters[$key]??'', $optionKey)? 'null' : "'$optionKey'" }})"
                     >
                         <span>{{ $optionValue['text']?? $optionValue }}</span>
                     </a>
@@ -19,14 +19,12 @@
         </ul>
         @else
             @foreach ($btnFilters as $key => $filter)
-                <div 
-                    class="btn-group btn-group-sm d-none d-sm-block @if($title) ms-4 @endif"
-                > 
+                <div class="btn-group btn-group-sm d-none d-sm-block @if($title) ms-4 @endif"> 
                 @foreach($filter->options() as $optionKey => $optionValue)
                     <button 
                         type="button" 
-                        class="btn-block btn btn-dim {{ $optionValue['class']??'' }} @if(Str::is($filters[$key]??'', $optionKey)) active @endif" 
-                        wire:click="$set('filters.{{ $key }}', '{{ Str::is($filters[$key]??'', $optionKey)? $optionKey : 'null' }}')"
+                        class="btn btn-dim {{ $optionValue['class']??'' }} @if(Str::is($filters[$key]??'', $optionKey)) active @endif"
+                        wire:click="$set('filters.{{ $key }}', {{ Str::is($filters[$key]??'', $optionKey)? 'null' : "'$optionKey'" }})"
                     >
                         {{ $optionValue['text']?? $optionValue }}
                     </button>
@@ -50,7 +48,7 @@
                     <button 
                         type="button" 
                         class="btn-block btn btn-dim {{ $optionValue['class']??'' }} @if(Str::is($filters[$key]??'', $optionKey)) active @endif" 
-                        wire:click="$set('filters.{{ $key }}', '{{ Str::is($filters[$key]??'', $optionKey)? $optionKey : 'null' }}')"
+                        wire:click="$set('filters.{{ $key }}', {{ Str::is($filters[$key]??'', $optionKey)? 'null' : "'$optionKey'" }})"
                     >
                         {{ $optionValue['text']?? $optionValue }}
                     </button>
