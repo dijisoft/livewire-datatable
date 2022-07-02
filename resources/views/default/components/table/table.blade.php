@@ -10,7 +10,7 @@
             })
         }
     }"
-    x-init="setExpandableRowSize()"
+    x-init="$watch('open', value => setExpandableRowSize())"
     @resize.window="setExpandableRowSize()"
     @resetExpandable.window="open = 0"
     @endif
