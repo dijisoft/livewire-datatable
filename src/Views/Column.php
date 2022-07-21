@@ -467,7 +467,7 @@ class Column
     public function view($view, ?array $props = [], ?array $fieldMap = [])
     {
         $fields = ['props' => 'props', 'value' => 'value', 'column' => 'column', 'row' => 'row'];
-        foreach(array_filter($fieldMap) as $key => $val) {
+        foreach(array_filter($fieldMap?? []) as $key => $val) {
             $fields[$key] = $val;
         }
 
