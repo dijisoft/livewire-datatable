@@ -81,8 +81,11 @@ class LivewireDatatable extends Component
      */
     protected $listeners = [
         'refreshDatatable' => '$refresh',
-        'setDatatableVariable' => 'setDatatableVariable'
+        'setDatatableVariable' => 'setDatatableVariable',
+        'readyToLoad' => 'loadTable'
     ];
+
+    protected $useSessionRows = false;
 
     /** 
     * Check table is ready to load
@@ -153,6 +156,8 @@ class LivewireDatatable extends Component
             $this->paginationEnabled = false;
             $this->showPagination = false;
         }
+
+        Collection::macro('total', fn() => $this->count());
         
         $this->resetSorts();
         $this->onMount();
@@ -244,8 +249,15 @@ class LivewireDatatable extends Component
             return collect();
         }
 
+        if($this->useSessionRows && session()->has($this->id)) {
+            $this->useSessionRows = false;
+            return session()->get($this->id);
+        }
+
         if ($this->paginationEnabled) {
-            return $this->applyPagination($this->rowsQuery());
+            $rows = $this->applyPagination($this->rowsQuery());
+            session()->put($this->id, $rows);
+            return $rows;
         }
 
         $rows = $this->rowsQuery()->get();
@@ -253,6 +265,8 @@ class LivewireDatatable extends Component
         if (method_exists($this, 'applyCollectionFilters')) {
             $rows = $this->applyCollectionFilters($rows);
         }
+
+        session()->put($this->id, $rows);
 
         return $rows;
     }
@@ -336,6 +350,7 @@ class LivewireDatatable extends Component
     public function loadTable()
     {
         $this->readyToLoad = true;
+        $this->deferLoad = false;
     }
 
     public function getCanLoadProperty() {
