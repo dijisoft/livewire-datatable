@@ -3,6 +3,7 @@
 namespace Dijisoft\LivewireDatatable;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Collection;
 use Blade;
 
 class LivewireDatatableServiceProvider extends ServiceProvider {
@@ -22,6 +23,8 @@ class LivewireDatatableServiceProvider extends ServiceProvider {
         ], 'livewire-datatable-provider');
 
         if (!$this->app->runningInConsole()) {
+            Collection::macro('total', fn() => $this->count());
+
             $this->loadViewsFrom(__DIR__.'/../resources/views', 'datatables');
 
             Blade::component('datatables::default.components.table.table', 'datatables::default.table');
