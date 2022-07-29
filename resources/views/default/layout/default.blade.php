@@ -70,9 +70,9 @@
             @include('datatables::default.includes.sorting-pills')
             @include('datatables::default.includes.filter-pills')
         </div>
-        <div @class(array_merge(['table-responsive'], $styles['class']?? [])) >    
+        <div @class($styles['class']?? [])>    
             @include('datatables::default.includes.table')
-        </div>  
+        </div>
         @include('datatables::default.includes.pagination')
     </div>
     @endif
