@@ -1,5 +1,42 @@
 @if (($filtersView || count($filtersList)) && !in_array('filters', $hide))
-    @if(collect($filtersList)->where('type', '!=', 'daterange')->count())
+
+    @foreach ($filtersList as $key => $filter)
+        @continue(! $filter->isDropdown())
+        <li>
+            <div class="dropdown">
+                <a href="#" 
+                    class="dropdown-toggle dropdown-indicator btn btn-outline-light btn-white" 
+                    data-bs-toggle="dropdown" aria-expanded="true">
+                    {{ $filter->name() }}
+                </a>
+                <div class="dropdown-menu dropdown-menu-end">
+                    <ul class="link-list-opt no-bdr">
+                        @foreach($filter->options() as $optionKey => $value)
+                            <li>
+                                <a 
+                                    id="filter-{{ $optionKey?: 0 }}" 
+                                    wire:click="$set('filters.{{ $key }}', '{{ $optionKey }}')"
+                                >
+                                    <span>{{ $value }}</span>
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+        </li>
+    @endforeach
+
+    @foreach ($filtersList as $key => $filter)
+        @continue(! $filter->isDaterange())
+        <li>
+            <div class="form-control-wrap">
+                <x-datatables::daterangepicker :key="$key" :daterangefilters="$daterangefilters" />
+            </div>
+        </li>
+    @endforeach
+
+    @if(collect($filtersList)->whereNotIn('type', ['daterange', 'dropdown'])->count())
         <li x-data>
             <div class="dropdown" wire:key='datatable-filters-{{ $this->id }}'>
                 <a 
@@ -28,7 +65,7 @@
                                 @include($filtersView)
                             @elseif (count($filtersList))
                                 @foreach ($filtersList as $key => $filter)
-                                    @continue($filter->isDaterange())
+                                    @continue($filter->isDaterange() || $filter->isDropdown())
                                     <div 
                                         wire:key="filter-{{ $key }}" 
                                         class="form-group"
@@ -72,12 +109,5 @@
             </div>
         </li>
     @endif
-    @foreach ($filtersList as $key => $filter)
-        @continue(! $filter->isDaterange())
-        <li>
-            <div class="form-control-wrap">
-                <x-datatables::daterangepicker :key="$key" :daterangefilters="$daterangefilters" />
-            </div>
-        </li>
-    @endforeach
+
 @endif

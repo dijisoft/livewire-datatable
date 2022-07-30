@@ -11,6 +11,7 @@ class Filter
     public const TYPE_DATERANGE = 'daterange';
     public const TYPE_CHECKBOX = 'checkbox';
     public const TYPE_BTN = 'btn';
+    public const TYPE_DROPDOWN = 'dropdown';
 
     /**
      * @var string
@@ -101,6 +102,20 @@ class Filter
     }
 
     /**
+     * @param array $options
+     *
+     * @return $this
+     */
+    public function dropdown(array $options = []): Filter
+    {
+        $this->type = self::TYPE_DROPDOWN;
+
+        $this->options = $options;
+
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function name(): string
@@ -130,6 +145,14 @@ class Filter
     public function isDaterange(): bool
     {
         return $this->type === self::TYPE_DATERANGE;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDropdown(): bool
+    {
+        return $this->type === self::TYPE_DROPDOWN;
     }
 
      /**

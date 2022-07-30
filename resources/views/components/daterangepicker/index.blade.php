@@ -1,5 +1,5 @@
 <span 
-    class="btn btn-outline-light btn-block" 
+    class="btn btn-outline-light btn-white btn-block" 
     id="filter-{{ $key }}"
     x-data
     x-ref="picker"
