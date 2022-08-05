@@ -47,12 +47,12 @@ class Column
     /**
      * @var string|null
      */
-    public ?string $class = 'nk-tb-col ';
+    public ?string $class = 'nk-tb-col';
 
     /**
      * @var string|null
      */
-    public ?string $headerClass = 'nk-tb-col ';
+    public ?string $headerClass = 'nk-tb-col';
 
       /**
      * @var callable
@@ -219,6 +219,8 @@ class Column
      */
     public function addClass(string|array $class): self
     {
+        $this->class .= ' ';
+
         $this->class .= is_array($class) 
             ? implode(' ', $class) 
             : $class;
@@ -233,6 +235,8 @@ class Column
      */
     public function addHeaderClass(string|array $class): self
     {
+        $this->headerClass .= ' ';
+
         $this->headerClass .= is_array($class) 
             ? implode(' ', $class) 
             : $class;
