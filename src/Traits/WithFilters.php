@@ -53,6 +53,7 @@ trait WithFilters
     public function mountWithFilters(): void
     {
         $this->checkFilters();
+        $this->customFilters = $this->initCustomFilters();
     }
 
      /**
@@ -70,9 +71,17 @@ trait WithFilters
         $search = $this->filters['search'] ?? null;
 
         $this->reset('filters', 'daterangefilters');
-        $this->customFilters = [];
+        $this->customFilters = $this->initCustomFilters();
 
         $this->filters['search'] = $search;
+    }
+
+    /**
+     * Init the custom filters array
+     */
+    public function initCustomFilters(): array
+    {
+        return [];
     }
 
     /**
