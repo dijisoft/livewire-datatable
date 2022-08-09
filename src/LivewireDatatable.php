@@ -85,7 +85,8 @@ class LivewireDatatable extends Component
         'readyToLoad' => 'loadTable'
     ];
 
-    protected $useSessionRows = false;
+    public bool $enableRowsCache = false;
+    protected bool $useRowsCache = false;
 
     /** 
     * Check table is ready to load
@@ -243,32 +244,48 @@ class LivewireDatatable extends Component
      *
      * @return Builder[]|\Illuminate\Database\Eloquent\Collection|mixed
      */
+    public function getRowsCollectionProperty() {
+        if ($this->paginationEnabled) {
+            $rows = $this->applyPagination($this->rowsQuery());
+        } else {
+            $rows = $this->rowsQuery()->get();
+
+            if (method_exists($this, 'applyCollectionFilters')) {
+                $rows = $this->applyCollectionFilters($rows);
+            }
+        }
+
+        return $rows;
+    }
+
+    /**
+     * Checks for rows cache and gets the rows
+     *
+     * @return Builder[]|\Illuminate\Database\Eloquent\Collection|mixed
+     */
     public function getRowsProperty()
     {
         if(! $this->can_load) {
             return collect();
         }
 
-        if($this->useSessionRows && session()->has($this->id)) {
-            $this->useSessionRows = false;
-            return session()->get($this->id);
-        }
-
-        if ($this->paginationEnabled) {
-            $rows = $this->applyPagination($this->rowsQuery());
+        if($this->enableRowsCache) 
+        {
+            if($this->useRowsCache && session()->has($this->id)) {
+                $this->useRowsCache = false;
+                return session()->get($this->id);
+            }
+    
+            $rows = $this->rows_collection;
+    
             session()->put($this->id, $rows);
+    
             return $rows;
+        } 
+        else 
+        {
+           return $this->rows_collection;
         }
-
-        $rows = $this->rowsQuery()->get();
-
-        if (method_exists($this, 'applyCollectionFilters')) {
-            $rows = $this->applyCollectionFilters($rows);
-        }
-
-        session()->put($this->id, $rows);
-
-        return $rows;
     }
 
     public function getTableNameProperty() {
@@ -360,5 +377,11 @@ class LivewireDatatable extends Component
     public function paginationView()
     {
         return 'vendor.livewire.default-pagination';
+    }
+
+    function __destruct() {
+        if($this->enableRowsCache) {
+            session()->forget($this->id);
+        }
     }
 }

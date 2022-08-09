@@ -25,19 +25,19 @@ trait WithBulkActions
 
     public function updatedSelected(): void
     {
-        $this->useSessionRows = true;
+        $this->useRowsCache = true;
         $this->selectAll = false;
         $this->selectPage = false;
     }
 
     public function updatedSelectAll(): void
     {
-        $this->useSessionRows = true;
+        $this->useRowsCache = true;
     }
 
     public function updatedSelectPage($value): void
     {
-        $this->useSessionRows = true;
+        $this->useRowsCache = true;
 
         if ($value) {
             $this->selectPageRows();
@@ -51,19 +51,19 @@ trait WithBulkActions
 
     public function selectPageRows(): void
     {
-        $this->useSessionRows = true;
+        $this->useRowsCache = true;
         $this->selected = $this->rows->pluck($this->primaryKey)->map(fn ($key) => (string) $key);
     }
 
     public function selectAll(): void
     {
-        $this->useSessionRows = true;
+        $this->useRowsCache = true;
         $this->selectAll = true;
     }
 
     public function resetBulk(): void
     {
-        $this->useSessionRows = true;
+        $this->useRowsCache = true;
         $this->selectPage = false;
         $this->selectAll = false;
         $this->selected = [];
