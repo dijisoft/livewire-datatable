@@ -6,7 +6,7 @@
                 x-on:click="open == {{ $row->id }}? open = 0 : open = {{ $row->id }}" style="cursor: pointer"
             @endif
         >
-            @if (strlen($column->editable))
+            @if (strlen($column->editable?? ''))
                 @if ($editedIndex === $row->id && $editedField === $column->editable)
                     <div class="form-control-wrap" style="max-width: 18rem">
                         <div class="form-icon form-icon-right cursor-pointer" wire:click="resetEditable()">

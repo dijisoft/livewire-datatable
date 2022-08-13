@@ -4,7 +4,7 @@
         <small>@lang('Applied Filters'):</small>
 
         @foreach($filters as $key => $value)
-            @if ($key !== 'search' && strlen($value))
+            @if ($key !== 'search' && strlen($value?? ''))
                 <span
                     wire:key="filter-pill-{{ $key }}"
                     class="badge badge-pill bg-info d-inline-flex align-items-center"
@@ -63,7 +63,7 @@
             @php 
                 $value = $this->getFilterValue($key, $value)
             @endphp
-            @if ($key !== 'search' && strlen($value))
+            @if ($key !== 'search' && strlen($value?? ''))
                 <span
                     wire:key="filter-pill-{{ $key }}"
                     class="badge badge-pill bg-info d-inline-flex align-items-center"
