@@ -77,7 +77,9 @@
                     </div>
                 @else
                 <div @class(array_merge(['card-inner p-0'], $styles['class']?? []))>
-                    @include('datatables::default.includes.table')
+                    <div @class(['table-responsive' => $responsive])>
+                        @include('datatables::default.includes.table')
+                    </div>
                 </div>
                 <div class="card-inner">
                     @include('datatables::default.includes.pagination')

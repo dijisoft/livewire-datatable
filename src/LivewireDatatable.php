@@ -120,6 +120,8 @@ class LivewireDatatable extends Component
     public $importActions = [];
     public $hide = [];
     public $params = [];
+    public $responsive = true;
+    public $onRowClick = false;
 
     public function mount(
         $layout = 'default',
@@ -149,7 +151,7 @@ class LivewireDatatable extends Component
         
         foreach (['layout', 'title', 'model', 'include', 'searchable', 'sortable', 'hidden', 'actions', 
             'create', 'restrict', 'defaultSorting', 'limit', 'components', 'views', 'loader', 'deferLoad', 
-            'styles', 'hide', 'params'] as $property) {
+            'styles', 'hide', 'params', 'responsive', 'onRowClick'] as $property) {
             $this->$property = $this->$property ?? $$property;
         }
 
@@ -342,7 +344,10 @@ class LivewireDatatable extends Component
                 'btnFilters' => $this->getFiltersBtn(),
                 'rows' => $this->rows,
             ])
-            ->layoutData(['metaTitle' => $this->metaTitle?? $this->title]);
+            ->layoutData(
+                $this->getLayoutData() ?? 
+                ['metaTitle' => $this->metaTitle?? $this->title]
+            );
     }
 
     /**
@@ -368,6 +373,10 @@ class LivewireDatatable extends Component
     {
         $this->readyToLoad = true;
         $this->deferLoad = false;
+    }
+
+    public function getLayoutData(): ?array {
+        return null;
     }
 
     public function getCanLoadProperty() {

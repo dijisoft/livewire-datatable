@@ -4,6 +4,8 @@
             class="{{ $column->class($row) }}"
             @if($column->triggersExpandable())
                 x-on:click="open == {{ $row->id }}? open = 0 : open = {{ $row->id }}" style="cursor: pointer"
+            @elseif($onRowClick && ! str(get_class($column))->endsWith('ActionsColumn'))
+                x-on:click="{{ str($onRowClick)->replace('{id}', $row->id) }}"
             @endif
         >
             @if (strlen($column->editable?? ''))

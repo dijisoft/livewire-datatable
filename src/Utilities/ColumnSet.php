@@ -63,7 +63,7 @@ class ColumnSet
 
         $exclude = is_array($exclude) ? $exclude : array_map('trim', explode(',', $exclude));
         $this->columns = $this->columns->reject(function ($column) use ($exclude) {
-            return in_array(Str::after($column->column, '.'), $exclude) || in_array($column->text, $exclude);
+            return in_array($column->column, $exclude) || in_array($column->text, $exclude);
         });
 
         return $this;
@@ -76,7 +76,7 @@ class ColumnSet
         }
         $hidden = is_array($hidden) ? $hidden : array_map('trim', explode(',', $hidden));
         $this->columns->each(function ($column) use ($hidden) {
-            $column->hidden = in_array(Str::after($column->column, '.'), $hidden);
+            $column->hidden = in_array($column->column, $hidden);
         });
 
         return $this;

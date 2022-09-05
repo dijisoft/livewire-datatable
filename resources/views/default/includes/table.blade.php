@@ -40,6 +40,7 @@
             <x-datatables::default.table.row
                 wire:loading.class.delay="text-muted"
                 wire:key="table-row-{{ $row->getKey() }}"
+                x-bind:class="open == {{ $row->id }}? 'parent-expanded' : ''"
                 :url="method_exists($this, 'getTableRowUrl') ? $this->getTableRowUrl($row) : null"
             >
                 @if($this->isExpandable())
@@ -62,7 +63,6 @@
                 </div>
                 @endif
 
-                {{-- {{ dd($rowView) }} --}}
                 @include($rowView, ['row' => $row])
               
             </x-datatables::default.table.row>
@@ -82,14 +82,11 @@
                     <div class="p-2" wire:loading.remove>
                         @lang($emptyMessage)
                     </div>
-                    {{-- <div class="d-flex justify-content-center py-4 ms-4" wire:loading  wire:target="rows">
-                        <div class="spinner-border text-light" role="status">  
-                            <span class="visually-hidden">Chargement...</span>
-                        </div>
-                    </div>     --}}
+                    <div class="spinner mt-4 mb-3 ms-2" role="status" wire:loading>  
+                        <span class="visually-hidden">@lang('Loading')...</span>
+                    </div>
                 </x-datatables::default.table.cell>
             </x-datatables::default.table.row>
-           
         @endforelse
     </x-slot>
 </x-datatables::default.table>
