@@ -122,6 +122,7 @@ class LivewireDatatable extends Component
     public $params = [];
     public $responsive = true;
     public $onRowClick = false;
+    public $dates = ['created_at', 'updated_at'];
 
     public function mount(
         $layout = 'default',
@@ -217,7 +218,10 @@ class LivewireDatatable extends Component
 
         if(is_array($this->restrict)) {
             foreach($this->restrict as $column => $value) {
-                $query = $query->where($column, $value);
+                $query->when(in_array($column, $this->dates),
+                    fn($q) => $q->whereDate($column, $value),
+                    fn($q) => $q->where($column, $value)
+                );
             }
         }
 
