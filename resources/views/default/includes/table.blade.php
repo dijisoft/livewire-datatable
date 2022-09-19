@@ -41,7 +41,8 @@
                 wire:loading.class.delay="text-muted"
                 wire:key="table-row-{{ $row->getKey() }}"
                 x-bind:class="open == {{ $row->id }}? 'parent-expanded' : ''"
-                :url="method_exists($this, 'getTableRowUrl') ? $this->getTableRowUrl($row) : null"
+                :url="$this->getTableRowUrl($row)"
+                :class="$this->getTableRowClass($row)"
             >
                 @if($this->isExpandable())
                 <div class="nk-tb-col nk-tb-col-caret" x-on:click="open == {{ $row->id }}? open = 0 : open = {{ $row->id }}" style="cursor: pointer">

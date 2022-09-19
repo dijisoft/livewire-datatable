@@ -18,6 +18,7 @@ use Dijisoft\LivewireDatatable\Traits\WithSorting;
 use Dijisoft\LivewireDatatable\Utilities\ColumnSet;
 use Dijisoft\LivewireDatatable\Exports\DatatableExport;
 use Dijisoft\LivewireDatatable\Traits\WithExpandableRows;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class TableComponent.
@@ -385,6 +386,16 @@ class LivewireDatatable extends Component
 
     public function getCanLoadProperty() {
         return (!$this->loader && !$this->deferLoad) || ($this->loader && $this->readyToLoad);
+    }
+
+    public function getTableRowClass(Model $row): string
+    {
+        return '';
+    }
+
+    public function getTableRowUrl(Model $row): string
+    {
+        return '';
     }
 
     public function paginationView()

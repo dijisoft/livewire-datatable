@@ -1,7 +1,6 @@
 @props(['url' => null])
 
-<div class="nk-tb-item"
-    {{ $attributes }}
+<div {{ $attributes->class(['nk-tb-item']) }}
 
     @if ($url)
         onclick="window.location='{{ $url }}';"
