@@ -30,24 +30,28 @@ class ActionsColumn extends Column
                         break;
                     }
                     case 'btn': {
-                        $html .= '<a href="'.(($action['route']??false)? route($action['route'], $row->id) : ($action['url']?? '#')) .'"  data-id="'.$row->id.'"
-                            ' .($action['attr']??'').' class="btn btn-sm '.($action['class']??'btn-primary').' '.($i>0?'ml-1':'').'">'.($action['title']??'').'</a>';
+                        $html .= '<a href="'.(($action['route']??false)? route($action['route'], $row->id) : ($action['url']?? '#')) .'"  data-id="'.$row->id.'" '
+                            .(($action['title']??false)? 'x-data="tooltip" title="'.$action['title'].'"' : '')
+                            .($action['attr']??'').' class="btn btn-sm '.($action['class']??'btn-primary').' '.($i>0?'ml-1':'').'">'.($action['title']??'').'</a>';
                             break;
                     }
                     case 'btn-icon': {
-                        $html .= '<a href="'. (($action['route']??false)? route($action['route'], $row->id) : ($action['url']?? '#')) .'" data-id="'.$row->id.'"
-                        ' .($action['attr']??'').' class="btn btn-icon btn-round '.($action['class']??'btn-trigger').' '.($i>0?'ml-1':'').'"><em class="icon ni ni-'.($action['icon']??'').'"></em></a>';
+                        $html .= '<a href="'. (($action['route']??false)? route($action['route'], $row->id) : ($action['url']?? '#')) .'" data-id="'.$row->id.'" '
+                            .(($action['title']??false)? 'x-data="tooltip" title="'.$action['title'].'"' : '')
+                            .($action['attr']??'').' class="btn btn-icon btn-round '.($action['class']??'btn-trigger').' '.($i>0?'ml-1':'').'"><em class="icon ni ni-'.($action['icon']??'').'"></em></a>';
                             break;
                     }
                     case 'wire-btn': {
-                        $html .= '<button wire:click.prevent="'. Str::replace(['{id}'], "$row->id", $action['click']) .'"
-                            '.(($action['confirm']??false)? 'onclick="confirm(\'Êtes vous sûr(e) de vouloir '.$action['confirm'].'?\') || event.stopImmediatePropagation()"' : '').'
+                        $html .= '<button wire:click.prevent="'. Str::replace(['{id}'], "$row->id", $action['click']) .'" '
+                            .(($action['title']??false)? 'x-data="tooltip" title="'.$action['title'].'"' : '')
+                            .(($action['confirm']??false)? 'onclick="confirm(\'Êtes vous sûr(e) de vouloir '.$action['confirm'].'?\') || event.stopImmediatePropagation()"' : '').'
                             class="btn btn-sm '.($action['class']??'btn-primary').' '.($i>0?'ml-1':'').'">'.($action['title']??'').'</button>';
                             break;
                     }
                     case 'wire-btn-icon': {
-                        $html .= '<button wire:click.prevent="'. Str::replace(['{id}'], "$row->id", $action['click']) .'"
-                            '.(($action['confirm']??false)? 'onclick="confirm(\'Êtes vous sûr(e) de vouloir '.$action['confirm'].'?\') || event.stopImmediatePropagation()"' : '').'
+                        $html .= '<button wire:click.prevent="'. Str::replace(['{id}'], "$row->id", $action['click']) .'" '
+                            .(($action['title']??false)? 'x-data="tooltip" title="'.$action['title'].'"' : '')
+                            .(($action['confirm']??false)? 'onclick="confirm(\'Êtes vous sûr(e) de vouloir '.$action['confirm'].'?\') || event.stopImmediatePropagation()"' : '').'
                             class="btn btn-icon btn-round '.($action['class']??'btn-trigger').' '.($i>0?'ml-1':'').'"><em class="icon ni ni-'.($action['icon']??'').'"></em></button>';
                             break;
                     }
