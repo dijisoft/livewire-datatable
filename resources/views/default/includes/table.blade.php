@@ -41,7 +41,6 @@
                 wire:loading.class.delay="text-muted"
                 wire:key="table-row-{{ $row->getKey() }}"
                 x-bind:class="open == {{ $row->id }}? 'parent-expanded' : ''"
-                :url="$this->getTableRowUrl($row)"
                 :class="$this->getTableRowClass($row)"
             >
                 @if($this->isExpandable())
@@ -64,7 +63,7 @@
                 </div>
                 @endif
 
-                @include($rowView, ['row' => $row])
+                @include($rowView, ['row' => $row, 'url' => $this->getTableRowUrl($row)])
               
             </x-datatables::default.table.row>
 
