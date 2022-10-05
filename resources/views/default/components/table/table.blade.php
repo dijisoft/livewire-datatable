@@ -2,17 +2,19 @@
 
 <div 
     @if($this->isExpandable())
-    x-data="{
-        open: 0,
-        setExpandableRowSize() {
-            $el.querySelectorAll('.nk-tb-col.colspan>div>div').forEach(function (element) {
-                element.style.width = $el.querySelector('.nk-tb-item').offsetWidth + 'px';
-            })
-        }
-    }"
-    x-init="$watch('open', value => setExpandableRowSize())"
-    @resize.window="setExpandableRowSize()"
-    @resetExpandable.window="open = 0"
+        x-data="{
+            open: 0,
+            setExpandableRowSize() {
+                $el.querySelectorAll('.nk-tb-col.colspan>div>div').forEach(function (element) {
+                    element.style.width = $el.querySelector('.nk-tb-item').offsetWidth + 'px';
+                })
+            }
+        }"
+        x-init="$watch('open', value => setExpandableRowSize())"
+        @resize.window="setExpandableRowSize()"
+        @resetExpandable.window="open = 0"
+    @else
+        x-data
     @endif
 
     class="nk-tb-list nk-tb-ulist nk-tb-tnx
