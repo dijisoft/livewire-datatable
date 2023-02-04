@@ -30,13 +30,13 @@ class ActionsColumn extends Column
                         break;
                     }
                     case 'btn': {
-                        $html .= '<a href="'.(($action['route']??false)? route($action['route'], $row->id) : ($action['url']?? '#')) .'"  data-id="'.$row->id.'" '
+                        $html .= '<a href="'.(($action['route']??false)? route($action['route'], $row) : ($action['url']?? '#')) .'"  data-id="'.$row->id.'" '
                             .(($action['title']??false)? 'x-data="tooltip" title="'.$action['title'].'"' : '')
                             .($action['attr']??'').' class="btn btn-sm '.($action['class']??'btn-primary').' '.($i>0?'ml-1':'').'">'.($action['title']??'').'</a>';
                             break;
                     }
                     case 'btn-icon': {
-                        $html .= '<a href="'. (($action['route']??false)? route($action['route'], $row->id) : ($action['url']?? '#')) .'" data-id="'.$row->id.'" '
+                        $html .= '<a href="'. (($action['route']??false)? route($action['route'], $row) : ($action['url']?? '#')) .'" data-id="'.$row->id.'" '
                             .(($action['title']??false)? 'x-data="tooltip" title="'.$action['title'].'"' : '')
                             .($action['attr']??'').' class="btn btn-icon btn-round '.($action['class']??'btn-trigger').' '.($i>0?'ml-1':'').'"><em class="icon ni ni-'.($action['icon']??'').'"></em></a>';
                             break;
