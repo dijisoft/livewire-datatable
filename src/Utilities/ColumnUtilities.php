@@ -68,6 +68,11 @@ class ColumnUtilities
     public static function hasWildcardMatch($column, $searchColumns): bool
     {
         return count(array_filter($searchColumns ?? [], function ($searchColumn) use ($column) {
+            // If searchColumn is not a string, skip
+            if (! is_string($searchColumn)) {
+                return false;
+            }
+            
             // Match wildcards such as * or table.*
             $hasWildcard = Str::endsWith($searchColumn, '*');
 
