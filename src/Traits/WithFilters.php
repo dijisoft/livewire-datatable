@@ -216,7 +216,7 @@ trait WithFilters
     public function getFilters(): array
     {
         return collect($this->filters)
-            ->reject(fn ($value) => $value === null || $value === '')
+            ->reject(fn ($value) => $value === null || $value === ''|| $value === 'null')
             ->toArray();
     }
 

@@ -73,8 +73,8 @@ class LivewireDatatable extends Component
      * @var \null[][]
      */
     protected $queryString = [
-        'filters' => ['except' => null],
-        'sorts' => ['except' => null],
+        'filters',
+        'sorts',
     ];
 
     /**

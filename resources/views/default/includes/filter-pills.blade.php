@@ -3,36 +3,35 @@
     <div id="filterPills" class="mb-3">
         <small>@lang('Applied Filters'):</small>
 
-        @foreach($filters as $key => $value)
-            @if ($key !== 'search' && strlen($value?? ''))
-                <span
-                    wire:key="filter-pill-{{ $key }}"
-                    class="badge badge-pill bg-info d-inline-flex align-items-center"
-                >
-                    {{ $filterNames[$key] ?? collect($this->columns())
-                        ->pluck('text', 'column')
-                        ->get($key, __(ucwords(strtr($key, ['_' => ' ', '-' => ' '])))) }}:
-                    @php $filterObj = $this->filterDefinitions[$key]?? null; @endphp
-                    @if($filterObj && method_exists($filterObj, 'options'))
-                        @if($filterObj->type == 'btn') 
-                        {{ $filterObj->options()[$value]['text'] ?? $value }}
-                        @else
-                        {{ $filterObj->options()[$value] ?? $value }}
-                        @endif
+        @foreach($this->getFiltersWithoutSearch() as $key => $value)
+            @continue (! strlen($value?? ''))
+            <span
+                wire:key="filter-pill-{{ $key }}"
+                class="badge badge-pill bg-info d-inline-flex align-items-center"
+            >
+                {{ $filterNames[$key] ?? collect($this->columns())
+                    ->pluck('text', 'column')
+                    ->get($key, __(ucwords(strtr($key, ['_' => ' ', '-' => ' '])))) }}:
+                @php $filterObj = $this->filterDefinitions[$key]?? null; @endphp
+                @if($filterObj && method_exists($filterObj, 'options'))
+                    @if($filterObj->type == 'btn') 
+                    {{ $filterObj->options()[$value]['text'] ?? $value }}
                     @else
-                        {{ ucwords(strtr($this->getFilterValue($key, $value), ['_' => ' ', '-' => ' '])) }}
+                    {{ $filterObj->options()[$value] ?? $value }}
                     @endif
+                @else
+                    {{ ucwords(strtr($this->getFilterValue($key, $value), ['_' => ' ', '-' => ' '])) }}
+                @endif
 
-                    <a  x-data x-on:click="$wire.removeFilter('{{ $key }}')"
-                        class="text-white ms-2 cursor-pointer"
-                    >
-                        <span class="visually-hidden">@lang('Remove filter option')</span>
-                        <svg style="width:.5em;height:.5em" stroke="currentColor" fill="none" viewBox="0 0 8 8">
-                            <path stroke-linecap="round" stroke-width="1.5" d="M1 1l6 6m0-6L1 7" />
-                        </svg>
-                    </a>
-                </span>
-            @endif
+                <a  x-data x-on:click="$wire.removeFilter('{{ $key }}')"
+                    class="text-white ms-2 cursor-pointer"
+                >
+                    <span class="visually-hidden">@lang('Remove filter option')</span>
+                    <svg style="width:.5em;height:.5em" stroke="currentColor" fill="none" viewBox="0 0 8 8">
+                        <path stroke-linecap="round" stroke-width="1.5" d="M1 1l6 6m0-6L1 7" />
+                    </svg>
+                </a>
+            </span>
         @endforeach
 
         @foreach($daterangefilters as $key => $value)
