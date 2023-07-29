@@ -9,7 +9,7 @@
         @if (count($bulkActions))
             <div class="nk-tb-col nk-tb-col-check">
                 <div class="custom-control custom-control-sm custom-checkbox notext">
-                    <input type="checkbox" class="custom-control-input" wire:model="selectPage" id="checkAll-{{ $this->id() }}">
+                    <input type="checkbox" class="custom-control-input" wire:model.live="selectPage" id="checkAll-{{ $this->id() }}">
                     <label class="custom-control-label" for="checkAll-{{ $this->id() }}"></label>
                 </div>
             </div>
@@ -54,7 +54,7 @@
                 <div class="nk-tb-col nk-tb-col-check">
                     <div class="custom-control custom-control-sm custom-checkbox notext">
                         <input type="checkbox" class="custom-control-input"
-                            wire:model="selected"
+                            wire:model.live="selected"
                             value="{{ $row->{$primaryKey} }}"
                             type="checkbox" id="check-{{ $this->id() . '-' . $row->{$primaryKey} }}"
                         />

@@ -18,7 +18,7 @@
                         <input type="text" class="form-control"
                             x-on:click.away="$wire.saveEditable()"
                             wire:keydown.enter="saveEditable()"
-                            wire:model.defer="editedValue" />
+                            wire:model="editedValue" />
                         @if ($errors->any())
                             <div class="is-invalid">{{ $errors->first() }}</div>
                         @endif

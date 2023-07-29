@@ -43,17 +43,17 @@ trait WithSearch
     public function getSearchFilterOptionsProperty(): string
     {
         if ($this->searchFilterDebounce) {
-            return '.debounce.' . $this->searchFilterDebounce . 'ms';
+            return '.debounce.' . $this->searchFilterDebounce . 'ms.live';
         }
 
         if ($this->searchFilterDefer) {
-            return '.defer';
+            return '';
         }
 
         if ($this->searchFilterLazy) {
             return '.lazy';
         }
 
-        return '';
+        return '.live';
     }
 }

@@ -75,7 +75,7 @@
                                             {{ $filter->name() }}
                                         </label>
                                         <div class="form-control-wrap">
-                                            <x-datatables::select2 id="filter-{{ $key }}" wire:model="filters.{{ $key }}">
+                                            <x-datatables::select2 id="filter-{{ $key }}" wire:model.live="filters.{{ $key }}">
                                                 @foreach($filter->options() as $key => $value)
                                                     <option value="{{ $key }}">{{ $value }}</option>
                                                 @endforeach
