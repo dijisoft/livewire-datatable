@@ -9,7 +9,7 @@
             @endif
         </div>
         <input type="text" class="form-control" placeholder="{{ $searchFilterPlaceholder?? __('Search') }}"
-            wire:model{{ $this->searchFilterOptions }}="filters.search" autocomplete="off">
+            wire:model{{ $this->searchFilterOptions }}.live="filters.search" autocomplete="off">
     </div>
 </li>
 @endif

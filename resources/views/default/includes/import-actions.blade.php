@@ -8,7 +8,7 @@
         <div class="dropdown-menu dropdown-menu-right w-100" aria-labelledby="importActions">
             @foreach($importActions as $action => $title)
                 <a
-                    x-data x-on:click="$wire.emit('{{ $action }}')"
+                    x-data x-on:click="$wire.dispatch('{{ $action }}')"
                     wire:key="import-action-{{ $action }}"
                     class="dropdown-item cursor-pointer"
                 >

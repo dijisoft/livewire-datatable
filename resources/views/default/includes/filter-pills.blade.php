@@ -44,7 +44,7 @@
                     {{ $filterNames[$key]?? __($key)}} @lang('from') 
                     {{ \Carbon\Carbon::parse($value['start'])->format('d/m/Y') }} @lang('to') {{ \Carbon\Carbon::parse($value['end'])->format('d/m/Y') }}
                     <a
-                        wire:click.prevent="removeFilter('{{ $key }}')"
+                        wire:click="removeFilter('{{ $key }}')"
                         class="text-white ms-2 cursor-pointer"
                     >
                         <span class="visually-hidden">@lang('Remove filter option')</span>
@@ -70,7 +70,7 @@
                 >
                     {{ ucfirst($filterNames[$key]?? __($key)) }} : {{ $value }} 
                     <a
-                        wire:click.prevent="removeFilter('{{ $key }}')"
+                        wire:click="removeFilter('{{ $key }}')"
                         class="text-white ms-2 cursor-pointer"
                     >
                         <span class="visually-hidden">@lang('Remove filter option')</span>
@@ -84,7 +84,7 @@
 
         <span class="badge badge-pill bg-light"></span>
         <a
-            wire:click.prevent="resetFilters"
+            wire:click="resetFilters"
             class="badge badge-pill bg-light cursor-pointer"
         >
             @lang('Clear')

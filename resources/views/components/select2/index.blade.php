@@ -1,7 +1,7 @@
 <div
     wire:ignore
     x-data="{
-        model: @entangle($attributes->wire('model')),
+        model: @entangle($attributes->wire('model')).live,
     }"
     x-init="
         select2 = $($refs.select)

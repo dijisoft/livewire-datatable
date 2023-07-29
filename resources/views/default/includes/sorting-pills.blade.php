@@ -11,7 +11,7 @@
 
                 <a
                     href="#"
-                    wire:click.prevent="removeSort('{{ $col }}')"
+                    wire:click="removeSort('{{ $col }}')"
                     class="text-white ms-2"
                 >
                     <span class="visually-hidden">@lang('Remove sort option')</span>
@@ -24,7 +24,7 @@
 
         <a
             href="#"
-            wire:click.prevent="resetSorts"
+            wire:click="resetSorts"
             class="badge badge-pill bg-light"
         >
             @lang('Clear')

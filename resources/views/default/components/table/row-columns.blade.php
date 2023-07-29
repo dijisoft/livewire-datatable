@@ -8,8 +8,7 @@
                 x-on:click="{{ str($onRowClick)->replace('{id}', $row->id) }}"
             @elseif($url && ! str(get_class($column))->endsWith('ActionsColumn'))
                 x-on:click="window.location='{{ $url }}'"
-            @endif
-        >
+            @endif>
             @if (strlen($column->editable?? ''))
                 @if ($editedIndex === $row->id && $editedField === $column->editable)
                     <div class="form-control-wrap" style="max-width: 18rem">
