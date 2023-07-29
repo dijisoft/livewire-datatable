@@ -44,14 +44,14 @@ class ActionsColumn extends Column
                     case 'wire-btn': {
                         $html .= '<button wire:click.prevent="'. Str::replace(['{id}'], "$row->id", $action['click']) .'" '
                             .(($action['title']??false)? 'x-data="tooltip" title="'.$action['title'].'"' : '')
-                            .(($action['confirm']??false)? 'onclick="confirm(\'Êtes vous sûr(e) de vouloir '.$action['confirm'].'?\') || event.stopImmediatePropagation()"' : '').'
+                            .(($action['confirm']??false)? 'onclick="confirm(\''.$action['confirm'].'\') || event.stopImmediatePropagation()"' : '').'
                             class="btn btn-sm '.($action['class']??'btn-primary').' '.($i>0?'ml-1':'').'">'.($action['title']??'').'</button>';
                             break;
                     }
                     case 'wire-btn-icon': {
                         $html .= '<button wire:click.prevent="'. Str::replace(['{id}'], "$row->id", $action['click']) .'" '
                             .(($action['title']??false)? 'x-data="tooltip" title="'.$action['title'].'"' : '')
-                            .(($action['confirm']??false)? 'onclick="confirm(\'Êtes vous sûr(e) de vouloir '.$action['confirm'].'?\') || event.stopImmediatePropagation()"' : '').'
+                            .(($action['confirm']??false)? 'onclick="confirm(\''.$action['confirm'].'\') || event.stopImmediatePropagation()"' : '').'
                             class="btn btn-icon btn-round '.($action['class']??'btn-trigger').' '.($i>0?'ml-1':'').'"><em class="icon ni ni-'.($action['icon']??'').'"></em></button>';
                             break;
                     }
