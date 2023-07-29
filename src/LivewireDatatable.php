@@ -172,6 +172,20 @@ class LivewireDatatable extends Component
         return true;
     }
 
+    public function boot() 
+    {
+        if($this->isExpandable()) {
+            $this->dispatch('resize');
+            $this->dispatch('resetexpandable');
+        }
+
+        $this->onBoot();
+    }
+
+    public function onBoot() {
+        return true;
+    }
+
     public function makeColumns() {
         return $this->model_instance;
     }
