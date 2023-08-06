@@ -30,34 +30,72 @@ class ActionsColumn extends Column
                         break;
                     }
                     case 'btn': {
-                        $html .= '<a href="'.(($action['route']??false)? route($action['route'], $row) : ($action['url']?? '#')) .'"  data-id="'.$row->id.'" '
-                            .(($action['title']??false)? 'x-data="tooltip" title="'.$action['title'].'"' : '')
-                            .($action['attr']??'').' class="btn btn-sm '.($action['class']??'btn-primary').' '.($i>0?'ml-1':'').'">'.($action['title']??'').'</a>';
+                        $html .= '<a href="'. $this->getRouteAction($action, $row) .'"  data-id="'.$row->id.'" '
+                            .$this->getActionTitle($action, $row)
+                            .data_get($action, 'attr', '')
+                            .' class="btn btn-sm '.($action['class']??'btn-primary').' '.($i>0?'ml-1':'').'">'
+                            .data_get($action, 'title', '').'</a>';
                             break;
                     }
                     case 'btn-icon': {
-                        $html .= '<a href="'. (($action['route']??false)? route($action['route'], $row) : ($action['url']?? '#')) .'" data-id="'.$row->id.'" '
-                            .(($action['title']??false)? 'x-data="tooltip" title="'.$action['title'].'"' : '')
-                            .($action['attr']??'').' class="btn btn-icon btn-round '.($action['class']??'btn-trigger').' '.($i>0?'ml-1':'').'"><em class="icon ni ni-'.($action['icon']??'').'"></em></a>';
+                        $html .= '<a href="'. $this->getRouteAction($action, $row) .'" data-id="'.$row->id.'" '
+                            .$this->getActionTitle($action, $row)
+                            .data_get($action, 'attr', '')
+                            .' class="btn btn-icon btn-round '.data_get($action, 'class', 'btn-trigger').' '.($i>0?'ml-1':'').'"><em class="icon ni ni-'
+                            .data_get($action, 'icon', '').'"></em></a>';
                             break;
                     }
                     case 'wire-btn': {
-                        $html .= '<button wire:click="'. Str::replace(['{id}'], "$row->id", $action['click']) .'" '
-                            .(($action['title']??false)? 'x-data="tooltip" title="'.$action['title'].'"' : '')
-                            .(($action['confirm']??false)? 'onclick="confirm(\''.$action['confirm'].'\') || event.stopImmediatePropagation()"' : '').'
-                            class="btn btn-sm '.($action['class']??'btn-primary').' '.($i>0?'ml-1':'').'">'.($action['title']??'').'</button>';
+                        $html .= '<button wire:click.prevent="'. $this->getClickAction($action, $row) .'" '
+                            .$this->getActionTitle($action, $row)
+                            .$this->getActionConfirm($action, $row)
+                            .'class="btn btn-sm '.($action['class']??'btn-primary').' '.($i>0?'ml-1':'').'">'
+                            .data_get($action, 'title'. '').'</button>';
                             break;
                     }
                     case 'wire-btn-icon': {
-                        $html .= '<button wire:click="'. Str::replace(['{id}'], "$row->id", $action['click']) .'" '
-                            .(($action['title']??false)? 'x-data="tooltip" title="'.$action['title'].'"' : '')
-                            .(($action['confirm']??false)? 'onclick="confirm(\''.$action['confirm'].'\') || event.stopImmediatePropagation()"' : '').'
-                            class="btn btn-icon btn-round '.($action['class']??'btn-trigger').' '.($i>0?'ml-1':'').'"><em class="icon ni ni-'.($action['icon']??'').'"></em></button>';
+                        $html .= '<button wire:click.prevent="'. $this->getClickAction($action, $row) .'" '
+                            .$this->getActionTitle($action, $row)
+                            .$this->getActionConfirm($action, $row)
+                            .'class="btn btn-icon btn-round '.data_get($action, 'class', 'btn-trigger').' '.($i>0?'ml-1':'').'"><em class="icon ni ni-'
+                            .data_get($action, 'icon', '').'"></em></button>';
                             break;
                     }
                 }
             }
             return $html;
         })->asHtml();
+    }
+
+    private function getActionTitle($action, $row) {
+        if(is_callable(data_get($action, 'title'))) {
+            return $action['title']($row);
+        }
+
+        return data_get($action, 'title') ? 'x-data="tooltip" title="'.$action['title'].'"' : '';
+    }
+
+    private function getActionConfirm($action, $row) {
+        if(is_callable(data_get($action, 'confirm'))) {
+            return $action['confirm']($row);
+        }
+
+        return data_get($action, 'confirm') ? 'onclick="confirm(\''.$action['confirm'].'\') || event.stopImmediatePropagation()"' : '';
+    }
+
+    private function getRouteAction($action, $row) {
+        if(is_callable(data_get($action, 'route'))) {
+            return $action['route']($row);
+        }
+
+        return data_get($action, 'route') ? route($action['route'], $row) : data_get($action, 'url', '#');
+    }
+
+    private function getClickAction($action, $row) {
+        if(is_callable(data_get($action, 'click'))) {
+            return $action['click']($row);
+        }
+
+        return Str::replace(['{id}'], "$row->id", data_get($action, 'click'));
     }
 }
