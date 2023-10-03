@@ -1,6 +1,8 @@
 <?php
 
 namespace Dijisoft\LivewireDatatable\Views;
+
+use Closure;
 use Str;
 
 class ActionsColumn extends Column
@@ -24,7 +26,7 @@ class ActionsColumn extends Column
                 }
                 switch($action['type']??null) {
                     case 'callable': {
-                        if(is_callable($action['callback']??null)) {
+                        if(data_get($action, 'callback') instanceof Closure) {
                             $html .= $action['callback']($row);
                         }
                         break;
@@ -68,7 +70,7 @@ class ActionsColumn extends Column
     }
 
     private function getActionTitle($action, $row) {
-        if(is_callable(data_get($action, 'title'))) {
+        if(data_get($action, 'title') instanceof Closure) {
             return $action['title']($row);
         }
 
@@ -76,7 +78,7 @@ class ActionsColumn extends Column
     }
 
     private function getActionConfirm($action, $row) {
-        if(is_callable(data_get($action, 'confirm'))) {
+        if(data_get($action, 'confirm') instanceof Closure){
             return $action['confirm']($row);
         }
 
@@ -84,7 +86,7 @@ class ActionsColumn extends Column
     }
 
     private function getRouteAction($action, $row) {
-        if(is_callable(data_get($action, 'route'))) {
+        if(data_get($action, 'route') instanceof Closure) {
             return $action['route']($row);
         }
 
@@ -92,7 +94,7 @@ class ActionsColumn extends Column
     }
 
     private function getClickAction($action, $row) {
-        if(is_callable(data_get($action, 'click'))) {
+        if(data_get($action, 'click') instanceof Closure) {
             return $action['click']($row);
         }
 
