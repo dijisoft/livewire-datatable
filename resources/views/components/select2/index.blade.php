@@ -29,6 +29,7 @@
             select2.val(value).trigger('change');
         });
     "
+    wire:key="{{ uniqid() }}"
 >
     <select x-ref="select" {{ $attributes->merge(['class' => 'form-control']) }}>
         {{ $slot }}
