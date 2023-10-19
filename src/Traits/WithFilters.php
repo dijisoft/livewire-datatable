@@ -74,6 +74,8 @@ trait WithFilters
         $this->customFilters = $this->initCustomFilters();
 
         $this->filters['search'] = $search;
+
+        $this->checkFilters();
     }
 
     /**
