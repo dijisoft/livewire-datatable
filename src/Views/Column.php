@@ -95,6 +95,11 @@ class Column
     public string $editable = '';
 
     /**
+     * @var bool
+     */
+    public bool $clickable = true;
+
+    /**
      * Column constructor.
      *
      * @param string|null $column
@@ -505,5 +510,23 @@ class Column
         $this->editable = $editable;
 
         return $this;
+    }
+
+    /**
+     * @return Column
+     */
+    public function clickable(bool $clickable = true)
+    {
+        $this->clickable = $clickable;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isClickable(): bool
+    {
+        return $this->clickable === true;
     }
 }
