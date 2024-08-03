@@ -43,8 +43,8 @@
                 x-bind:class="open == {{ $row->id }}? 'parent-expanded' : ''"
                 :class="$this->getTableRowClass($row)"
             >
-                @if($this->isExpandable())
-                <div class="nk-tb-col nk-tb-col-caret" x-on:click="open == {{ $row->id }}? open = 0 : open = {{ $row->id }}" style="cursor: pointer">
+                @if ($this->isExpandable() && $onRowClick)
+                <div class="nk-tb-col nk-tb-col-caret" x-on:click="{{ str($onRowClick)->replace('{id}', $row->id) }}" style="cursor: pointer">
                     <em class="icon text-primary ni" 
                         :class="open == {{ $row->id }}? 'ni-caret-down-fill' : 'ni-caret-right-fill'"></em>
                 </div>
