@@ -98,6 +98,8 @@ class ActionsColumn extends Column
             return $action['click']($row);
         }
 
-        return Str::replace(['{id}'], "$row->id", data_get($action, 'click'));
+        $idTerm = data_get($action, 'idTerm', 'id');
+        $id = $row->$idTerm;
+        return Str::replace(['{id}'], "$id", data_get($action, 'click'));
     }
 }
