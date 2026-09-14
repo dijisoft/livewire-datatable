@@ -10,7 +10,7 @@
             <ul class="link-check">
                 @foreach($bulkActions as $action => $title)
                 <li>
-                    <a href="#" wire:click.prevent="{{ $action }}" wire:key="bulk-action-{{ $action }}">
+                    <a href="#" wire:click="{{ $action }}" wire:key="bulk-action-{{ $action }}">
                         {{ $title }}
                     </a>
                 </li>

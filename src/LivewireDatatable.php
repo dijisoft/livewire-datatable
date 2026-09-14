@@ -73,8 +73,8 @@ class LivewireDatatable extends Component
      * @var \null[][]
      */
     protected $queryString = [
-        'filters' => ['except' => null],
-        'sorts' => ['except' => null],
+        'filters',
+        'sorts',
     ];
 
     /**
@@ -169,6 +169,20 @@ class LivewireDatatable extends Component
     }
 
     public function onMount() {
+        return true;
+    }
+
+    public function boot() 
+    {
+        if($this->isExpandable()) {
+            $this->dispatch('resize');
+            $this->dispatch('resetexpandable');
+        }
+
+        $this->onBoot();
+    }
+
+    public function onBoot() {
         return true;
     }
 
@@ -278,14 +292,14 @@ class LivewireDatatable extends Component
 
         if($this->enableRowsCache) 
         {
-            if($this->useRowsCache && session()->has($this->id)) {
+            if($this->useRowsCache && session()->has($this->id())) {
                 $this->useRowsCache = false;
-                return session()->get($this->id);
+                return session()->get($this->id());
             }
     
             $rows = $this->rows_collection;
     
-            session()->put($this->id, $rows);
+            session()->put($this->id(), $rows);
     
             return $rows;
         } 
@@ -405,7 +419,7 @@ class LivewireDatatable extends Component
 
     function __destruct() {
         if($this->enableRowsCache) {
-            session()->forget($this->id);
+            session()->forget($this->id());
         }
     }
 }

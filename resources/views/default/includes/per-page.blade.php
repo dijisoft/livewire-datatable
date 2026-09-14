@@ -1,7 +1,7 @@
 @if ($paginationEnabled && !in_array('per-page', $hide))
     <div class="ms-3">
         <select
-            wire:model="perPage"
+            wire:model.live="perPage"
             id="perPage"
             class="form-control form-control-sm"
         >

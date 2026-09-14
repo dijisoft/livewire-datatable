@@ -10,8 +10,7 @@
                 @elseif($url && ! str(get_class($column))->endsWith('ActionsColumn'))
                     x-on:click="window.location='{{ $url }}'"
                 @endif
-            @endif
-        >
+            @endif>
             @if (strlen($column->editable?? ''))
                 @if ($editedIndex === $row->id && $editedField === $column->editable)
                     <div class="form-control-wrap" style="max-width: 18rem">
@@ -21,7 +20,7 @@
                         <input type="text" class="form-control"
                             x-on:click.away="$wire.saveEditable()"
                             wire:keydown.enter="saveEditable()"
-                            wire:model.defer="editedValue" />
+                            wire:model="editedValue" />
                         @if ($errors->any())
                             <div class="is-invalid">{{ $errors->first() }}</div>
                         @endif
