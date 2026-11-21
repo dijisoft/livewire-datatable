@@ -87,6 +87,16 @@ trait WithFilters
     }
 
     /**
+     * The filters as they were before the update being applied.
+     */
+    protected array $filtersBeforeUpdate = [];
+
+    public function updatingFilters(): void
+    {
+        $this->filtersBeforeUpdate = $this->filters;
+    }
+
+    /**
      * Runs when any filter is changed
      */
     public function updatedFilters(): void
@@ -99,8 +109,12 @@ trait WithFilters
         // Remove any url params that are empty
         $this->checkFilters();
 
-        // Reset the page when filters are changed
-        $this->resetPage();
+        // Reset the page when filters are changed. The browser's back button
+        // sends the filters of the history entry along with its page: when
+        // they are the same as now, the page of that entry must stay.
+        if ($this->filters != $this->filtersBeforeUpdate) {
+            $this->resetPage();
+        }
     }
 
     /**

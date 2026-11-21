@@ -2,11 +2,14 @@
 
 namespace Dijisoft\LivewireDatatable\Traits;
 
-use Illuminate\Pagination\Paginator;
 use Livewire\WithPagination;
 
 /**
  * Trait WithCustomPagination.
+ *
+ * Livewire keeps the current page in $paginators and in the URL (?page=2).
+ * This trait only makes the table's own page name the default one, so that
+ * resetPage() and the pagination view's gotoPage(2) act on the right paginator.
  */
 trait WithCustomPagination
 {
@@ -14,63 +17,30 @@ trait WithCustomPagination
 
     public function pageName(): string
     {
-        if (property_exists($this, 'pageName')) {
-            if (! isset($this->{$this->pageName})) {
-                $this->{$this->pageName} = 1;
-            }
-
-            return $this->pageName;
-        }
-
-        return 'page';
+        return property_exists($this, 'pageName') ? $this->pageName : 'page';
     }
 
-    /**
-     * @return array
-     */
-    public function getQueryString()
+    public function previousPage($pageName = null): void
     {
-        return array_merge([$this->pageName() => ['except' => 1]], $this->queryString);
+        $pageName ??= $this->pageName();
+
+        $this->setPage(max($this->getPage($pageName) - 1, 1), $pageName);
     }
 
-    public function initializeWithPagination(): void
+    public function nextPage($pageName = null): void
     {
-        $this->{$this->pageName()} = $this->resolvePage();
+        $pageName ??= $this->pageName();
 
-        Paginator::currentPageResolver(function () {
-            return $this->{$this->pageName()};
-        });
-
-        Paginator::defaultView($this->paginationView());
+        $this->setPage($this->getPage($pageName) + 1, $pageName);
     }
 
-    public function previousPage(): void
+    public function gotoPage($page, $pageName = null): void
     {
-        $this->setPage($this->{$this->pageName()} - 1);
+        $this->setPage($page, $pageName ?? $this->pageName());
     }
 
-    public function nextPage(): void
+    public function resetPage($pageName = null): void
     {
-        $this->setPage($this->{$this->pageName()} + 1);
-    }
-
-    public function setPage($page): void
-    {
-        $this->{$this->pageName()} = $page;
-    }
-
-    /**
-     * @return array|null|string
-     */
-    public function resolvePage()
-    {
-        return request()->query($this->pageName(), $this->{$this->pageName()});
-    }
-
-    public function getPublicPropertiesDefinedBySubClass()
-    {
-        return tap(parent::getPublicPropertiesDefinedBySubClass(), function (&$props) {
-            $props[$this->pageName()] = $this->{$this->pageName()};
-        });
+        $this->setPage(1, $pageName ?? $this->pageName());
     }
 }

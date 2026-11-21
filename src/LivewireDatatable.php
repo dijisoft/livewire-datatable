@@ -3,6 +3,7 @@
 namespace Dijisoft\LivewireDatatable;
 
 use Livewire\Component;
+use Livewire\Livewire;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -310,8 +311,9 @@ class LivewireDatatable extends Component
     }
 
     public function getTableNameProperty() {
-        $path = request()->getContent()? json_decode(request()->getContent())->fingerprint->path??'' : request()->path();
-        return $path . last(explode('\\', get_class($this)));
+        // The path of the page the table sits on, on the first request and on
+        // every update: the per-page choice is stored in the session under it.
+        return Livewire::originalPath() . last(explode('\\', get_class($this)));
     }
 
     public function getModelInstanceProperty() {

@@ -51,7 +51,9 @@ trait WithSearch
         }
 
         if ($this->searchFilterLazy) {
-            return '.blur';
+            // Livewire 4: "blur" alone only syncs the client state; "live" sends the
+            // request. On Livewire 3 both forms send the request on blur.
+            return '.live.blur';
         }
 
         return '.live';
